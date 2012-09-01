@@ -1,0 +1,9 @@
+application/config/*
+application/language/*
+public/attic/*
+public/basement/*
+public/font*
+public/img*
+public/laravel*
+storage/views/*
+laravel/*

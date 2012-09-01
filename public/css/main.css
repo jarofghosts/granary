@@ -1,0 +1,452 @@
+/* 
+    Document   : main
+    Created on : Aug 5, 2012, 3:59:54 AM
+    Author     : kab0b0
+    Description:
+        This is a fill-in until I delve into compass
+*/
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+::-moz-selection { background: #555; color: #fff; text-shadow: none; }
+::selection { background: #555; color: #fff; text-shadow: none; }
+body {
+    font-size: 18px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #F0F0F0;
+    color: #555;
+    background-image: url('/sailor/img/tiny_grid.png');
+}
+.reply .button {
+    display: inline-block;
+    float: right;
+}
+header {
+    border-bottom: 4px double #333;
+    box-shadow: 2px 2px #ddd;
+    font-size: 30px;
+}
+h1.title {
+    font-family: 'Alfa Slab One', cursive;
+    color: #333;
+    font-size: 50px;
+    margin-left: 20px;
+    float: left;
+}
+h1.title a {
+    font-family: 'Alfa Slab One', cursive;
+    color: #333;
+    border: none;
+    text-decoration: none;
+}
+h1.subtitle {
+    font-family: 'Alfa Slab One', cursive;
+    color: #333;
+    font-size: 32px;
+}
+div.user_box {
+    float: right;
+    text-align: right;
+    margin-top: 15px;
+    font-size: 15px;
+    min-width: 200px;
+}
+div.user_box a:hover{
+    text-shadow: none;
+}
+select {
+    outline: none;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.user_slug {
+    margin-top: -32px;
+    padding: 5px;
+    padding-top: 10px;
+    background-color: #fafafa;
+    border: 1px solid #333;
+    float: left;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    opacity: .75;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #555;
+}
+.user_slug img {
+    max-height: 30px;
+    display: inline-block;
+    margin-right: 6px;
+    max-width: 30px;
+    vertical-align: middle;
+}
+.user_slug a {
+    text-decoration: none;
+    border: none;
+}
+.category_slug {
+    text-align: center;
+    font-size: .85em;
+    float: right;
+    width: 90px;
+    margin-left: -3px;
+    margin-top: 27px;
+    border-top: 1px solid #555;
+    border-right: 1px solid #555;
+    border-bottom: 1px solid #555;
+    border-radius: 3px;
+    padding: 3px;
+    box-shadow: 1px 1px 1px #555;
+}
+.category_slug img {
+    max-width: 75px;
+    max-height: 75px;
+}
+.header {
+    font-size: 2.5em;
+    color: #333;
+    font-family: 'Alfa Slab One', cursive;
+
+}
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -54px;
+}
+.profile_image {
+    float: left;
+}
+.profile_summary {
+    float: left;
+    margin-left: 10px;
+    color: #333;
+}
+.category_container {
+    display: inline-block;
+    float: left;
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 3px;    
+}
+a {
+    text-decoration: none;
+    color: #303030;
+    border-bottom: 1px double #555;
+}
+a:hover {
+    color: #101010;
+    text-shadow: 1px 1px 1px #ccc;
+}
+a:active {
+    background-color: #555;
+    color: #ddd;
+}
+div#main {
+    clear: both;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+.nav_box {
+    float: left;
+    margin-top: 50px;
+}
+.nav_box ul {
+    line-height: 0px;
+    list-style: none;
+    padding-left: 50px;
+    margin-left: -18px;
+    border-top: 2px solid #333;
+}
+.nav_box ul li {
+    display: inline-block;
+    font-size: 15px;
+    margin: 7px;
+}
+
+.nav_box a {
+    background-color: #333;
+    color: #ddd;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 2px;
+}
+.nav_box a:hover {
+    text-decoration: underline;
+    padding-bottom: 7px;
+    padding-top: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -5px;
+    margin-right: -5px;
+    text-shadow: none;
+    box-shadow: 1px 1px 2px #ccc;
+    border-radius: 3px;
+}
+.nav_box a:active {
+    background-color: #555;
+    box-shadow: 1px 1px 4px #ccc;
+}
+
+.post_admin {
+    position: absolute;
+    bottom: -18px;
+    right: 125px;
+}
+
+.reply_count {
+    position: absolute;
+    bottom: -18px;
+    left: 75px;
+}
+.footer {
+    margin: 10px;
+    font-weight: 400;
+}
+.footer h6 {
+    text-shadow: #555 1px 1px 0;
+}
+
+h6 a {
+    color: #ccc;
+}
+
+h6 a:hover {
+    color: #ddd;
+    text-shadow: #888 1px 1px 0;
+}
+
+.messages {
+    background-color: #333;
+    padding: 5px;
+    position: relative;
+    padding-right: 15px;
+    margin-bottom: 3px;
+    border-radius: 3px;
+}
+
+.messages:hover {
+    background-color: #555;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #333;
+}
+
+.header_name {
+    font-size: 18px;
+}
+
+.messages a {
+    color: #ddd;
+    border: none;
+}
+
+.messages i {
+    float: left;
+    font-size: 15px;
+    color: #ddd;
+}
+.messages span {
+    display: inline-block;
+    margin-top: -2px;
+    margin-left: 5px; 
+}
+
+#push, footer {
+    clear: both;
+}
+
+.category_slug a {
+    text-decoration: none;
+    border: none;
+}
+
+a.button {
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: #333;
+    padding: 3px;
+    border: none;
+    color: #ccc;
+}
+a.button:hover {
+    text-shadow: none;
+    box-shadow: 1px 1px 2px #ccc;
+}
+a.button:active {
+    background-color: #ccc;
+    color: #555;
+    box-shadow: 1px 1px 2px #555;
+}
+input {
+    outline: none;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #333;
+    font-family: 'Ubuntu', sans-serif;
+}
+input[name=title] {
+    margin-left: 3px;
+    width: 50%;
+}
+#push {
+    height: 85px;
+}
+textarea {
+    outline: none;
+    min-width: 85%;
+    min-height: 400px;
+    border: none;
+    border-bottom: 1px solid #333;
+    border-left: 1px solid #333;
+    font-size: 16px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.post {
+    position: relative;
+}
+article {
+    clear: both;
+}
+.post h1 {
+    display: block;
+    margin-left: 175px;
+    margin-bottom: -18px;
+    color: #333;
+    width: 65%;
+    word-break: break-all;
+}
+.post h1 a {
+    border: none;
+}
+button {
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: #333;
+    padding: 4px;
+    border: none;
+    color: #ccc;
+    font-family: 'Ubuntu', sans-serif;    
+}
+button:hover {
+    text-shadow: none;
+    box-shadow: 1px 1px 2px #ccc;
+}
+button:active {
+    background-color: #ccc;
+    color: #555;
+    box-shadow: 1px 1px 2px #555;
+}
+blockquote {
+    color: #333;
+    overflow: auto;
+    max-width: 650px;
+    display: block;
+    border: 1px solid #a0a0a0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom: 2px solid #333;
+    margin-bottom: 50px;
+    padding: 20px;
+    position: relative;
+    min-height: 80px;
+}
+.profile_block {
+    margin-left: -5px;
+    width: 70%;
+}
+#side_pane {
+    background-color: #f0f0f0;
+    position: fixed;
+    width: 15%;
+    min-height: 75%;
+    float: right;
+    margin-left: 60%;
+    border: 3px double #333;
+    border-radius: 3px;
+}
+.reply {
+    width: 85%;
+    margin: auto;
+}
+.reply_container {
+    border: 1px solid #555;
+    padding: 5px;
+}
+.mini_title {
+    float: left;
+}
+.mini_category {
+    float: right;
+}
+.mini_category img {
+    max-width: 40px;
+    max-height: 40px;
+}
+footer {
+    border-top: 4px double #ccc;
+    padding: 3px;
+    margin-top: -85px;
+    height: 75px;
+    background-color: #333;
+    color: #ccc;
+}
+.mini_post {
+    padding: 5px;
+    border-bottom: 1px dashed #555;
+    font-size: .9em;
+}
+.mini_post h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+}
+.mini_post a {
+    text-decoration: none;
+    border: none;
+}
+.mini_selected {
+    box-shadow: 0 0 10px 4px #ccc;
+}
+#user_settings input {
+    width: 50px;
+}
+ul.unread_mail, ul.read_mail {
+    border: 1px solid #333;
+    border-radius: 3px;
+    border-bottom: 3px solid #333;
+    padding: 20px;
+}
+ul.unread_mail li, ul.read_mail li {
+    display: block;
+    clear: both;
+    overflow: auto;
+    width: 95%;
+    color: #333;
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px #555;
+}
+ul.unread_mail li span, ul.read_mail li span {
+    font-size: .9em;
+    font-weight: lighter;
+    float: right;
+}
+ul.unread_mail li strong, ul.read_mail li strong {
+    float: left;
+}
+
+ul.unread_mail li img, ul.read_mail li img {
+    max-width: 32px;
+    max-height: 24px;
+    vertical-align: middle;
+}
+ul.read_mail li {
+    background-color: #ccc;
+}
