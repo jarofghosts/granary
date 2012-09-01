@@ -6,6 +6,9 @@
         <title>@yield('title')</title>
         <meta name="viewport" content="width=device-width">
         @yield('pre_includes')
+        @if (Auth::check())
+        {{ HTML::style('css/user.css') }}
+        @endif
         {{ HTML::style('css/main.css') }}
         {{ HTML::style('css/vendor/jquery-ui-1.8.23.custom.css') }}
         {{ HTML::style('css/vendor/font-awesome.css') }}
@@ -18,27 +21,23 @@
                 <div id="head_user_box" class="user_box">
                     @if (Auth::check())
                     <div id="user" class="messages">
-                        <i class="icon-user"></i><a href="{{ URL::base() }}/~{{ Auth::user()->username }}">{{ Auth::user()->display_name }}</a>
+                        <i class="icon-home"></i><a href="{{ URL::base() }}/~/settings">{{ Auth::user()->display_name }}</a>
                     </div>
                     <div id="logout" class="messages">
                         <i class="icon-signout"></i><a href="{{ URL::base() }}/logout">Logout</a>
-                    </div>
-                    
+                    </div>        
                     <?php
-
                     $unread = Auth::user()->unread_messages();
                     $unread_count = count($unread);
                     ?>
-                    @if ($unread_count > 0)
                     <div id="unread" class="messages">
-                        @if ($unread_count == 1)
+                        @if ($unread_count <= 1)
                         <i class="icon-comment"></i>
                         @else
                         <i class="icon-comments"></i>
                         @endif
-                        <span><a href="{{ URL::base() }}/messages/inbox">{{ $unread_count }} unread message@if ($unread_count != 1)s@endif</a></span>
+                        <span><a href="{{ URL::base() }}/messages">{{ $unread_count }} unread message@if ($unread_count != 1)s@endif</a></span>
                     </div>
-                    @endif
                     @else
                     <form method="post" action="{{ URL::base() }}/login">
                         <input type="text" name="username" placeholder="username"/>

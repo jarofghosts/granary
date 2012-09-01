@@ -1,5 +1,3 @@
-<h1 class="subtitle">{{ $message->subject }}</h1>
-<br/>
 <div class="user_slug">
 
     <img src="{{ URL::base() }}{{ $message->sender->avatar }}" alt="{{ $message->sender->display_name }}"/>

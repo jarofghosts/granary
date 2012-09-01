@@ -10,7 +10,7 @@
 <h1 class="subtitle">Unread Messages ({{ $unread_count }})</h1>
 <ul class="unread_mail">
 	@if ($inbox_count < 1)
-	<em>{{ Diceman::nothing() }}</em>
+		<em>{{ Diceman::nothing() }}</em>
 	@else
     @foreach ($unread as $unread_message)
         @include('messages.unread_inbox')
@@ -19,8 +19,8 @@
 </ul>
 <h1 class="subtitle">Read Messages ({{ $read_count }})</h1>
 <ul class="read_mail">
-		@if ($inbox_count < 1)
-	<em>{{ Diceman::nothing() }}</em>
+	@if ($inbox_count < 1)
+		<em>{{ Diceman::nothing() }}</em>
 	@else
     @foreach ($read as $read_message)
         @include('messages.read_inbox')

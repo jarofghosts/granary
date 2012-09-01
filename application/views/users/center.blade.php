@@ -1,13 +1,13 @@
 @layout('common.template')
 
 @section('title')
-{{ $message->subject }} -{{ $message->sender->display_name }}
+{{ Auth::user()->display_name }}'s User Center
 @endsection
 
 @section('header')
-{{ $message->subject }}
+{{ Auth::user()->display_name }}
 @endsection
 
 @section('main_content')
-@include('messages.single_view')
+@include('users.center_actions')
 @endsection

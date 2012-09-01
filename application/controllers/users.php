@@ -215,11 +215,26 @@ class Users_Controller extends Base_Controller {
     public function action_get_settings()
     {
 
-        return View::make('users.settings')->with('user', Auth::user())->with('preference', Preference::find(Auth::user()->id));
+        return View::make('users.center')
+        ->with('preference', Preference::find(Auth::user()->id));
+    }
+
+    public function action_save_profile()
+    {
+        
+    }
+
+    public function action_save_content()
+    {
 
     }
 
-    public function action_post_settings()
+    public function action_save_exclusions()
+    {
+
+    }
+
+    public function action_save_preferences()
     {
         
     }

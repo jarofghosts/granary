@@ -4,3 +4,8 @@
 2012-09-01 08:16:30 ERROR - Undefined variable: no_words in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 9
 2012-09-01 08:16:55 ERROR - Access to undeclared static property: Diceman::$no_words in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 9
 2012-09-01 08:17:35 ERROR - syntax error, unexpected 'public' (T_PUBLIC) in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 3
+2012-09-01 21:03:13 ERROR - syntax error, unexpected '<' in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 9
+2012-09-01 21:03:57 ERROR - Trying to get property of non-object in C:\Users\kab0b0\sailor\application\routes.php on line 57
+2012-09-01 21:04:18 ERROR - View [users.not_found] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151
+2012-09-01 21:04:57 ERROR - View [users.not_found] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151
+2012-09-01 21:18:54 ERROR - View [template] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151

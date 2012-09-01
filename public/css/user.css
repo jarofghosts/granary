@@ -1,0 +1,77 @@
+.messages {
+    background-color: #333;
+    padding: 5px;
+    position: relative;
+    padding-right: 15px;
+    margin-bottom: 3px;
+    border-radius: 3px;
+}
+
+.messages:hover {
+    background-color: #555;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #333;
+}
+
+.messages a {
+    color: #ddd;
+    border: none;
+}
+
+.messages i {
+    float: left;
+    font-size: 15px;
+    color: #ddd;
+}
+
+.messages span {
+    display: inline-block;
+    margin-top: -2px;
+    margin-left: 5px; 
+}
+#user_settings input {
+    width: 50px;
+}
+
+ul.unread_mail, ul.read_mail {
+    border: 1px solid #333;
+    border-radius: 3px;
+    border-bottom: 3px solid #333;
+    padding: 20px;
+}
+ul.unread_mail li, ul.read_mail li {
+    display: block;
+    clear: both;
+    overflow: auto;
+    width: 95%;
+    color: #333;
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px #555;
+}
+ul.unread_mail li span, ul.read_mail li span {
+    font-size: .9em;
+    font-weight: lighter;
+    float: right;
+}
+ul.unread_mail li strong, ul.read_mail li strong {
+    float: left;
+}
+
+ul.unread_mail li img, ul.read_mail li img {
+    max-width: 32px;
+    max-height: 24px;
+    vertical-align: middle;
+}
+ul.read_mail li {
+    background-color: #ccc;
+}
+
+ul.center_options {
+	float: left;
+	width: 25%;
+}
+div.center_action {
+	float: left;
+	width: 75%;
+}

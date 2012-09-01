@@ -48,6 +48,7 @@ Route::controller('groups');
 Route::get('categories/(:any)', 'categories@by_handle');
 Route::get('categories/(:any)/posts', 'posts@category_handle');
 
+Route::get('~/settings', 'users@get_settings');
 Route::get('!(:any)/posts', 'categories@posts_by_handle');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
 Route::get('!(:any)', 'categories@by_handle');
