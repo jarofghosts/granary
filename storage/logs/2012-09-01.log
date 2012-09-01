@@ -1,1 +1,6 @@
 2012-09-01 07:20:20 ERROR - Undefined class constant 'base' in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 7
+2012-09-01 08:03:48 ERROR - Undefined variable: unread_message in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 2
+2012-09-01 08:16:19 ERROR - Undefined variable: no_words in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 9
+2012-09-01 08:16:30 ERROR - Undefined variable: no_words in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 9
+2012-09-01 08:16:55 ERROR - Access to undeclared static property: Diceman::$no_words in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 9
+2012-09-01 08:17:35 ERROR - syntax error, unexpected 'public' (T_PUBLIC) in C:\Users\kab0b0\sailor\application\libraries\diceman.php on line 3
