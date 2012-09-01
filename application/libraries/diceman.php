@@ -4,7 +4,8 @@ class Diceman {
 
 
 	static $no_words
-	 = array( 'Zilch', 'Zip', 'Goose egg', 'Nothin\'', 'Nada', 'N/A', '---', 'DIVIDE_BY_ZERO_ERROR' );
+	 = array( 'Zilch', 'Zip', 'Goose egg', 'Nothin\'', 'Nada', 'N/A', '---', 'DIVIDE_BY_ZERO_ERROR',
+	 'Not anything', 'Null', 'Naught', '{}', '&empty;', 'Empty' );
 
 	
 	public static function nothing() {
