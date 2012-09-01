@@ -12,5 +12,5 @@
     @endif
     <input type="text" name="subject" placeholder="subject"/><br/>
     <textarea style="background-color: {{ Auth::user()->color }}" name="body" placeholder="message"></textarea><br/>
-    <button type="submit" class="button">Send</button>
+    <button type="submit" class="button">send</button>
 </form>

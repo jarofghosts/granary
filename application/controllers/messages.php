@@ -34,8 +34,8 @@ class Messages_Controller extends Base_Controller {
             $recipient = false;
         }
         return View::make('messages.send')
-                        ->with('recipient', $recipient)
-                        ->with('parent_id', $parent_id);
+        ->with('recipient', $recipient)
+        ->with('parent_id', $parent_id);
 
     }
 
@@ -58,21 +58,29 @@ class Messages_Controller extends Base_Controller {
     {
 
         $read = Message::where('recipient_id', '=', Auth::user()->id)
-                ->where('read', '=', '1')
-                ->get();
+        ->where('read', '=', '1')
+        ->get();
         $unread = Message::where('recipient_id', '=', Auth::user()->id)
-                ->where('read', '=', '0')
-                ->get();
-        return View::make('messages.inbox')->with('read', $read)
-                        ->with('unread', $unread);
+        ->where('read', '=', '0')
+        ->get();
+        return View::make('messages.inbox')
+        ->with('read', $read)
+        ->with('unread', $unread);
 
     }
 
     public function get_outbox()
     {
 
-        $outbox = Message::where('sender_id', '=', Auth::user()->id);
-        return View::make('messages.outbox')->with('outbox', $outbox);
+        $read = Message::where('sender_id', '=', Auth::user()->id)
+        ->where('read', '=', '1')
+        ->get();
+        $unread = Message::where('sender_id', '=', Auth::user()->id)
+        ->where('read', '=', '0')
+        ->get();
+        return View::make('messages.outbox')
+        ->with('read', $read)
+        ->with('unread', $unread);
 
     }
 
@@ -80,12 +88,12 @@ class Messages_Controller extends Base_Controller {
     {
 
         $inbox = Message::where('recipient_id', '=', Auth::user()->id)
-                ->where('flag', '!=', 'spam');
+        ->where('flag', '!=', 'spam');
         $outbox = Message::where('sender_id', '=', Auth::user()->id);
 
         return View::make('messages.view_list')
-                        ->with('inbox', $inbox)
-                        ->with('outbox', $outbox);
+        ->with('inbox', $inbox)
+        ->with('outbox', $outbox);
 
     }
 
@@ -100,17 +108,17 @@ class Messages_Controller extends Base_Controller {
             'body' => Input::get('body'),
             'message_type' => 0,
             'read' => false
-        );
+            );
         $rules = array(
             'body' => 'required',
             'subject' => 'max:128'
-        );
+            );
 
         $validation = Validator::make($message_data, $rules);
 
         if ($validation->fails()) {
             return View::make('common.error')->with('errors', $validation->errors)
-                            ->with('error_message', 'Form validation errors');
+            ->with('error_message', 'Form validation errors');
         } else {
 
             $new_message = new Message;

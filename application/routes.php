@@ -37,6 +37,8 @@ Route::get('logout', function() {
 Route::get('categories/(:num)', 'categories@view');
 Route::get('categories/(:num)/posts', 'posts@category_id');
 
+Route::get('messages', 'messages@inbox');
+
 Route::controller('users');
 Route::controller('posts');
 Route::controller('categories');
