@@ -7,3 +7,4 @@ public/img*
 public/laravel*
 storage/views/*
 laravel/*
+storage/logs/*

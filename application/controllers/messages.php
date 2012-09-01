@@ -45,6 +45,7 @@ class Messages_Controller extends Base_Controller {
         if ($group_id) {
 
             $group = true;
+
         } else {
 
             $group = false;
@@ -86,15 +87,15 @@ class Messages_Controller extends Base_Controller {
 
     public function get_index()
     {
-
-        $inbox = Message::where('recipient_id', '=', Auth::user()->id)
-        ->where('flag', '!=', 'spam');
-        $outbox = Message::where('sender_id', '=', Auth::user()->id);
-
-        return View::make('messages.view_list')
-        ->with('inbox', $inbox)
-        ->with('outbox', $outbox);
-
+        $unread_in = Message::where('recipient_id', '=', Auth::user()->id)
+        ->where('read', '=', '0')
+        ->get();
+        $unread_out = Message::where('sender_id', '=', Auth::user()->id)
+        ->where('read', '=', '0')
+        ->get();
+        return View::make('messages.index')
+        ->with('inbox', $unread_in)
+        ->with('outbox', $unread_out);
     }
 
     public function post_send()
