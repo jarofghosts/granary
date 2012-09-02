@@ -72,6 +72,7 @@ class User extends Eloquent {
 
         $ignore = Ignore::where('user_id', '=', $this->get_attribute('id'))
                         ->where('jerk_id', '=', $user_id)->get();
+
         if (count($ignore) < 1) {
             return false;
         } else {
@@ -83,7 +84,9 @@ class User extends Eloquent {
     public function excludes($category_id)
     {
 
-        $exclude = Exclusion::where('user_id', '=', $this->get_attribute('id')->where('category_id', '=', $category_id)->get());
+        $exclude = Exclusion::where('user_id', '=', $this->get_attribute('id'))
+                            ->where('category_id', '=', $category_id)->get();
+
         if (count($exclude) < 1) {
             return false;
         } else {
@@ -101,19 +104,30 @@ class User extends Eloquent {
 
     public function get_display_name()
     {
-        $prefix = "";
-        
-        if ($this->get_attribute('access_level') >= 5) {
-            $prefix = "+";
-        }
-        if ($this->get_attribute('access_level') >= 10) {
-            $prefix = "@";
-        }
-        if ($this->get_attribute('access_level') >= 15) {
-            $prefix = "&";
-        }
+        $display_name = Cache::get($this->get_attribute('username') . '&display_name');
 
-        return $prefix . $this->get_attribute('username');
+        if ($display_name === NULL)
+        {
+            $access_level = $this->get_attribute('access_level');
+
+            $prefix = "";
+
+            if ($access_level >= 5 && $access_level < 10) {
+                $prefix = "+";
+            }
+            if ($access_level >= 10 && $access_level < 15) {
+                $prefix = "@";
+            }
+            if ($access_level >= 15) {
+                $prefix = "&";
+            }
+
+            $display_name = $prefix . $this->get_attribute('username');
+
+            Cache::forever($this->get_attribute('username') . '&display_name', $display_name);
+        }
+        
+        return $display_name;
 
     }
 
@@ -162,41 +176,64 @@ class User extends Eloquent {
     public function post_list( $take = 15, $skip = 0 )
     {
 
-        $categories = DB::table('user_category_exclusions')
-        ->where('user_id', '=', $this->get_attribute('id'))
-        ->get(array('category_id'));
+        $username = $this->get_attribute('username');
+        $user_id = $this->get_attribute('id');
 
-        $users = DB::table('user_ignores')
-        ->where('user_id', '=', $this->get_attribute('id'))
-        ->get(array('jerk_id'));
+        $excluded_categories = Cache::get($username . '&cat_excludes');
 
-        $excluded_categories = array();
-        $ignored_users = array();
+        if ( $excluded_categories === NULL )
+        {
+        
+            $categories = DB::table('user_category_exclusions')
+            ->where('user_id', '=', $user_id)
+            ->get(array('category_id'));
 
-        foreach ($categories as $category) {
-            array_push($excluded_categories, $category->category_id);
+            $excluded_categories = array();
+
+            foreach ($categories as $category) {
+               array_push($excluded_categories, $category->category_id);
+            }
+
+            Cache::forever($username . '&cat_excludes', $excluded_categories);
+
         }
-        foreach ($users as $user) {
-            array_push($ignored_users, $user->jerk_id);
+
+        $ignored_users = Cache::get($username . '&jerk_ignores');
+
+        if ( $ignored_users === NULL )
+        {
+
+            $users = DB::table('user_ignores')
+            ->where('user_id', '=', $user_id)
+            ->get(array('jerk_id'));
+
+        
+            $ignored_users = array();
+
+
+            foreach ($users as $user) {
+                array_push($ignored_users, $user->jerk_id);
+            }
+
         }
 
-        return Post::where('posts.active', '=', 1)
-                ->left_join('categories', 'posts.category_id', '=', 'categories.id')
-                ->left_join('users', 'posts.author_id', '=', 'users.id')
-                ->where_not_in('categories.id', $excluded_categories)
-                ->where_not_in('users.id', $ignored_users)
-                ->order_by('posts.created_at', 'desc')
+        return Post::where('active', '=', 1)
+                ->where_not_in('category_id', $excluded_categories)
+                ->where_not_in('author_id', $ignored_users)
+                ->order_by('created_at', 'desc')
                 ->take($take)
                 ->skip($skip)
-                ->get(array('posts.*'));
+                ->get();
 
     }
 
-    private function flatten(array $array) {
-    $return = array();
-    
-    return $return;
-    
+    public function category_list() {
+
+        return Cache::remember($this->get_username . '&cat_list',Category::where('categories.active', '=', 1)
+        ->where('categories.access_required', '<=', $this->get_attribute('access_level'))
+        ->get(), 'forever');
+
     }
+
 
 }

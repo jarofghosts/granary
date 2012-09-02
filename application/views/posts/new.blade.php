@@ -9,7 +9,7 @@
 
     <br/>Category: 
     <select name="category_id" id="category_select">
-    @foreach (Category::all() as $category)
+    @foreach (Auth::user()->category_list() as $category)
 
         <option value="{{ $category->id; }}">{{ $category->title; }}</option>
 

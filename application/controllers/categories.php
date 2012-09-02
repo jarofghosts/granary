@@ -129,7 +129,8 @@ class Categories_Controller extends Base_Controller {
 
     public function get_index()
     {
-        $categories = Category::all();
+        $categories = Category::where('active', '=', 1)
+                            ->get();
 
         return View::make('categories.list')->with('categories', $categories);
 
@@ -154,11 +155,12 @@ class Categories_Controller extends Base_Controller {
     public function get_by_handle($category_handle = null)
     {
 
-        $category = Category::where('handle', '=', $category_handle)->take(1)->get();
+        $category_id = Category::where('handle', '=', $category_handle)->take(1)->only('id');
 
-        if ($category) {
+        if ($category_id) {
 
-            return $this->get_view($category[0]->id);
+            return $this->get_view($category_id);
+
         } else {
 
             $this->handle = $category_handle;

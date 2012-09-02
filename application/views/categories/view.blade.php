@@ -3,4 +3,11 @@
 @if (Auth::check() && ($category->creator->id == Auth::user()->id || $category->creator->access_level < Auth::user()->access_level))
 <a class="button" href="{{ URL::base() }}/categories/edit/{{ $category->id }}">edit</a>
 @endif
-<br/>created by {{ $category->creator->display_name }} <em>({{ count($posts) }} posts)</em>
+<br/>created by <a href="{{ URL::base() }}/~{{ $category->creator->username }}">{{ $category->creator->display_name }}</a> <em>(posts: {{ count($posts) }})</em>
+<br/>@if ( Auth::check() )
+@if (Auth::user()->excludes($category->id))
+<a href="{{ URL::base() }}/ignores/exclude/{{ $category->id }}" class="button">ignore</a>
+@else
+<a href="{{ URL::base() }}/ignores/de/{{ $category->id }}" class="button">un-ignore</a>
+@endif
+@endif

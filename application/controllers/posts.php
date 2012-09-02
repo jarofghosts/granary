@@ -6,8 +6,16 @@ class Posts_Controller extends Base_Controller {
 
     public function get_new()
     {
+
         return View::make('posts.new');
 
+    }
+
+    public function get_php_ver()
+
+    {
+
+        return phpinfo();
     }
 
     public function post_new()
@@ -151,28 +159,6 @@ class Posts_Controller extends Base_Controller {
             }
         } else {
             return View::make('common.error')->with('error_message', 'No post ID specified');
-        }
-
-    }
-
-    public function get_by_slug($post_slug = null)
-    {
-
-        $post = Post::where('slug', '=', $post_slug)->take(1)->get();
-
-        if ($post) {
-
-            return $this->get_view($post[0]->id);
-        } else {
-
-            $this->handle = $post_slug;
-            $object = $this;
-            $search = Post::where('active', '=', 1)->where(function($query) use($object) {
-                                $query->where('slug', 'LIKE', '%' . $object->handle . '%');
-                                $query->or_where('title', 'LIKE', '%' . $object->handle . '%');
-                            })
-                    ->get();
-            return View::make('posts.not_found')->with('possibilities', $search);
         }
 
     }
