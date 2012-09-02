@@ -23,7 +23,7 @@
 </ul>
 <h1 class="subtitle"><a href="{{ URL::base() }}/messages/outbox">Outbox</a> ({{ $outbox_count }})</h1>
 <ul class="unread_mail">
-    @if ($inbox_count < 1)
+    @if ($outbox_count < 1)
         <em>{{ Diceman::nothing() }}</em>
     @else
     @foreach ($outbox as $unread_message)

@@ -72,5 +72,5 @@
 </html>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-<script defer src="/sailor/js/sailaway.js"></script>
+<script defer src="{{ URL::base() }}/js/sailaway.js"></script>
 @yield('post_includes')

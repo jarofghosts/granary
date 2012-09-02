@@ -216,7 +216,7 @@ class Users_Controller extends Base_Controller {
     {
 
         return View::make('users.center')
-        ->with('preference', Preference::find(Auth::user()->id));
+        ->with('preferences', Preference::find(Auth::user()->id));
     }
 
     public function action_save_profile()

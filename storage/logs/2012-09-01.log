@@ -9,3 +9,7 @@
 2012-09-01 21:04:18 ERROR - View [users.not_found] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151
 2012-09-01 21:04:57 ERROR - View [users.not_found] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151
 2012-09-01 21:18:54 ERROR - View [template] doesn't exist. in C:\Users\kab0b0\sailor\laravel\view.php on line 151
+2012-09-01 21:40:37 ERROR - Undefined variable: inbox_count in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 11
+2012-09-01 21:42:03 ERROR - Undefined variable: inbox_count in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 11
+2012-09-01 22:47:45 ERROR - Undefined variable: user in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 2
+2012-09-01 22:48:29 ERROR - Undefined variable: change_avatar in C:\Users\kab0b0\sailor\laravel\view.php(354) : eval()'d code on line 3

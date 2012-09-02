@@ -29,7 +29,7 @@
     margin-top: -2px;
     margin-left: 5px; 
 }
-#user_settings input {
+#board_prefs_edit input[type=text] {
     width: 50px;
 }
 
@@ -54,6 +54,7 @@ ul.unread_mail li span, ul.read_mail li span {
     font-weight: lighter;
     float: right;
 }
+
 ul.unread_mail li strong, ul.read_mail li strong {
     float: left;
 }
@@ -63,6 +64,7 @@ ul.unread_mail li img, ul.read_mail li img {
     max-height: 24px;
     vertical-align: middle;
 }
+
 ul.read_mail li {
     background-color: #ccc;
 }
@@ -71,7 +73,39 @@ ul.center_options {
 	float: left;
 	width: 25%;
 }
+
+ul.center_options li {
+	list-style: none;
+	display: inline-block;
+	padding: 2px;
+}
+ul.center_options li:hover {
+	border-left: 3px solid #888;
+}
+
+ul.center_options li a {
+	border-bottom: none;
+	padding: 2px;
+}
+
+ul.center_options li.current {
+	border-left: 3px solid #333;
+}
+
 div.center_action {
-	float: left;
-	width: 75%;
+	float: right;
+	width: 68%;
+	min-height: 400px;
+	border-right: 1px solid #333;
+	border-top: 1px solid #333;
+	border-bottom: 3px solid #333;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+.mini_avatar {
+	max-height: 75px;
+}
+.avatar_box {
+	float: right;
 }
