@@ -8,3 +8,5 @@ public/laravel*
 storage/views/*
 laravel/*
 storage/logs/*
+storage/*
+artisan

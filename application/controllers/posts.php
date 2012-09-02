@@ -33,17 +33,7 @@ class Posts_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
-            // replace all non letters or digits with -, chomp it to 60 characters
-            $post['slug'] = preg_replace('/\W+/', '-', $post['title']);
-            $post['slug'] = strtolower(trim($post['slug'], '-'));
-            $post['slug'] = substr($post['slug'], 0, 60);
-
-            $appendix = 0;
-            $slug_check = $post['slug'];
-
-            while (Post::where('slug', '=', $post['slug'])->get()) {
-                $post['slug'] = $slug_check . $appendix;
-            }
+            $post['slug'] = Post::generate_slug($post['title']);
 
             $new_post = new Post();
             $new_post->fill($post);
@@ -65,7 +55,12 @@ class Posts_Controller extends Base_Controller {
 
             if ($post) {
 
-                return View::make('posts.edit')->with('post', $post);
+                if (Auth::user()->can_edit_post($id)) {
+                    return View::make('posts.edit')->with('post', $post);
+
+                }
+                return View::make('common.error')->with('error_message', 'Insufficient priveleges');
+                
             } else {
 
                 return View::make('common.error')->with('error_message', 'Post does not exist');
@@ -135,7 +130,7 @@ class Posts_Controller extends Base_Controller {
     public function get_index()
     {
 
-        $posts = Auth::check() ? Auth::user()->post_list() : Post::where('active', '=', 1);
+        $posts = Auth::check() ? Auth::user()->post_list() : Anonymous::post_list();
         return View::make('posts.list')->with('posts', $posts);
 
     }

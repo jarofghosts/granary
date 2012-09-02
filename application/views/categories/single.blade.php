@@ -1,7 +1,7 @@
 @layout('common.template')
 
 @section('title')
-{{ $category->name }}
+{{ $category->title }}
 @endsection
 
 @section('main_content')

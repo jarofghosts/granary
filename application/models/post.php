@@ -34,6 +34,26 @@ class Post extends Eloquent {
 
     }
 
+    public static function generate_slug($title) {
+
+        // replace all non letters or digits with -, chomp it to 60 characters
+        $slug = preg_replace('/\W+/', '-', $title);
+        $slug = strtolower(trim($post['slug'], '-'));
+        $slug = substr($post['slug'], 0, 60);
+
+        $appendix = 0;
+        $slug_check = $post['slug'];
+
+        while (Post::where('slug', '=', $post['slug'])
+            ->where('category_id', '=', $post['category_id'])
+            ->get()) {
+            $slug = $slug_check . $appendix;
+        }
+
+        return $slug;
+
+    }
+
 }
 
 ?>
