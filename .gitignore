@@ -10,3 +10,4 @@ laravel/*
 storage/logs/*
 storage/*
 artisan
+paths.php
