@@ -18,6 +18,11 @@
     border: none;
 }
 
+.messages a:hover {
+	color: #f0f0f0;
+	text-shadow: 2px 2px 2px #ccc;
+}
+
 .messages i {
     float: left;
     font-size: 15px;

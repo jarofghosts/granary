@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of groups
- *
- * @author jarofghosts
- */
 class Groups_Controller extends Base_Controller {
 
     public $restful = true;
@@ -36,7 +26,7 @@ class Groups_Controller extends Base_Controller {
         $rules = array(
             'title' => 'required|max:128',
             'description' => 'required',
-            'handle' => 'alpha_dash'
+            'handle' => 'required|alpha_dash|max:24'
         );
 
         $validation = Validator::make($group, $rules);
@@ -45,6 +35,27 @@ class Groups_Controller extends Base_Controller {
             return View::make('common.error')->with('errors', $validation->errors)
                             ->with('error_message', 'Form validation errors');
         } else {
+
+            if (Input::get('logo', FALSE) !== FALSE) {
+
+                $avatar_bernie = new Bernie;
+
+                $new_avatar = $avatar_bernie->migrate(Input::get('logo'), "attic/groups/");
+
+                $group['logo'] = $new_avatar;
+
+                if ($avatar_bernie->getHeight() > $avatar_bernie->getWidth() && $avatar_bernie->getHeight() > 320) {
+
+                    $avatar_bernie->resizeToHeight(320);
+
+                } elseif ($avatar_bernie->getWidth() > $avatar_bernie->getHeight() && $avatar_bernie->getWidth() > 320) {
+
+                    $avatar_bernie->resizeToWidth(320);
+
+                }
+
+                $avatar_bernie->save($new_avatar);
+            }
 
             $new_group = new Group();
             $new_group->fill($group);
@@ -95,5 +106,3 @@ class Groups_Controller extends Base_Controller {
     }
 
 }
-
-?>

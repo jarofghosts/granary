@@ -9,6 +9,9 @@
 @endsection
 
 @section('main_content')
+<img src="{{ URL::base() }}{{ $group->logo }}" alt="{{ $group->title }}"/>
+<br/>
+<blockquote>{{ $group->description }}</blockquote>
 <?php $members = count($group->members) ?>
 {{ $members }} members:<br/>
 <ol>
@@ -18,4 +21,5 @@
 
 @endforeach
 </ol>
+<a href="{{ URL::base() }}/messages/new_group/{{ $group->id }}" class="button">message</a>
 @endsection

@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="wrapper">
-            <header><h1 class="title"><a href="{{ URL::base() }}">Sailor</a></h1>
+            <header><h1 class="title"><a href="{{ URL::base() }}/posts">Sailor</a></h1>
                 <div id="head_user_box" class="user_box">
                     @if (Auth::check())
                     <div id="user" class="messages">
@@ -36,7 +36,7 @@
                         @else
                         <i class="icon-comments"></i>
                         @endif
-                        <span><a href="{{ URL::base() }}/messages">{{ $unread_count }} unread message@if ($unread_count != 1)s@endif</a></span>
+                        <a href="{{ URL::base() }}/messages">{{ $unread_count }} unread message@if ($unread_count != 1)s@endif</a>
                     </div>
                     @else
                     <form method="post" action="{{ URL::base() }}/login">

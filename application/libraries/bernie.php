@@ -4,15 +4,16 @@ class Bernie {
 
     static $image;
     static $image_type;
-    static $directory = "/home/jessekea/sailor/public/";
-
+    static $directory = './';
 
     public static function migrate($uri = null, $save_path = "basement/")
     {
-        $local_path = "/home/jessekea/sailor/public/";
+        $local_path = "./";
 
-        $new_file = preg_replace('/\W+/', '-', substr(Hash::make(time() . $uri), 10) . substr($uri, -6));
+        $new_file = preg_replace('/\W+/', '-', substr(Hash::make(time() . $uri), 10));
         $new_file = strtolower(trim($new_file, '-'));
+        $new_file .= str_replace('/', '', substr($uri, -6));
+
         $file = fopen($uri, "rb");
         if ($file) {
             $newf = fopen($local_path . $save_path . $new_file, "w+");
