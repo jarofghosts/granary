@@ -16,6 +16,7 @@ class Create_Categories {
                     $table->string('title', 128);
                     $table->string('handle', 32);
                     $table->string('logo', 128);
+                    $table->integer('access_requirement');
                     $table->text('description');
                     $table->boolean('active')->default(1);
                     $table->timestamps();

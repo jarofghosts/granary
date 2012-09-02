@@ -134,37 +134,9 @@ class Posts_Controller extends Base_Controller {
 
     public function get_index()
     {
-        $exclusions = Auth::check() ? Exclusion::where('user_id', '=', Auth::user()->id)->get() : array();
-        $ignores = Auth::check() ? Ignore::where('user_id', '=', Auth::user()->id)->get() : array();
 
-        $limit = Auth::check() ? Preference::find(Auth::user()->id)->front_page_posts : 15;
-
-        $excluded_categories = array(0);
-        $ignored_users = array(0);
-
-        foreach ($exclusions as $exclusion) {
-
-            array_push($excluded_categories, $exclusion->category_id);
-        }
-
-        foreach ($ignores as $ignore) {
-
-            array_push($ignored_users, $ignore->jerk_id);
-        }
-
-        $categories = Auth::check() ?
-                Category::where('active', '=', '1')->where_not_in('id', $excluded_categories)->take(10)->get() : Category::where('active', '=', '1')->take(10)->get();
-
-        $posts = Post::where('posts.active', '=', 1)
-                ->left_join('categories', 'posts.category_id', '=', 'categories.id')
-                ->left_join('users', 'posts.author_id', '=', 'users.id')
-                ->where_not_in('categories.id', $excluded_categories)
-                ->where_not_in('users.id', $ignored_users)
-                ->order_by('posts.created_at', 'desc')
-                ->take($limit)
-                ->get(array('posts.*'));
-
-        return View::make('posts.list')->with('posts', $posts)->with('categories', $categories);
+        $posts = Auth::check() ? Auth::user()->post_list() : Post::where('active', '=', 1);
+        return View::make('posts.list')->with('posts', $posts);
 
     }
 

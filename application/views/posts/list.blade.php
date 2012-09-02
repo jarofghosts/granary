@@ -11,5 +11,5 @@ Posts index
 @foreach ($posts as $post)
 @include('posts.view')
 @endforeach
-<div style="clear:both;"></div>
+<div style="clear: both"></div>
 @endsection
