@@ -4,6 +4,6 @@
         <a href="{{ URL::base() }}/~{{ $reply->user->handle }}">{{ $reply->user->display_name }}</a>
     </div>
     <blockquote style="background-color: {{ $reply->user->color }}">{{ Sparkdown\Markdown ($reply->body) }}</blockquote>
-    <a class="button" href="{{ URL::base() }}/<{{ $reply->grandparent->slug }}/>{{ $reply->slug }}">permalink</a>
+    <a class="button" href="{{ URL::base() }}/!{{ $reply->grandparent->category->handle }}/<{{ $reply->grandparent->slug }}/>{{ $reply->slug }}">permalink</a>
 </div>
 <div style="clear: both;"></div>

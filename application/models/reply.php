@@ -62,6 +62,30 @@ class Reply extends Eloquent {
             while (Reply::where('grandparent_id', '=', $post_id)->where('slug', '=', $slug)->get()) {
                 $slug = $slug_check . $appendix;
             }
+
+            return $slug;
+
+    }
+
+    public static function full_path( $category_handle, $post_slug, $reply_slug )
+    {
+
+        $reply_id = Cache::remember(md5( $category_handle . $post_slug . $reply_slug),
+            DB::table('replies')->join('posts', 'posts.id', '=', 'replies.grandparent_id')
+            ->join('categories', 'categories.id', '=', 'posts.category_id')
+            ->where('posts.slug', '=', $post_slug)
+            ->where('categories.handle', '=', $category_handle)
+            ->where('replies.slug', '=', $reply_slug)
+            ->only('replies.id'), 'forever');
+
+        if ($reply_id === NULL) {
+
+            Cache::forget(md5( $category_handle . $post_slug . $reply_slug)); // just in case this was some odd 404, we'll just forget the cache
+
+        }
+
+        return $reply_id;
+
     }
 
 }

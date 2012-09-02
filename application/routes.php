@@ -4,6 +4,7 @@ Route::get('/', function() {
             return View::make('common.index');
         });
 Route::get('posts/(:num)/reply/new', 'replies@new');
+Route::post('reply/new', 'replies@new');
 Route::delete('posts/(:num)', 'posts@remove');
 Route::get('users/(:num)', 'users@index');
 Route::get('posts/(:num)', 'posts@view');
@@ -50,7 +51,6 @@ Route::get('!(:any)/<(:any)/>(:any)', 'replies@full_path');
 Route::get('!(:any)/<(:any)', 'posts@full_path');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
 Route::get('!(:any)', 'categories@by_handle');
-Route::get('<(:any)/>(:any)', 'replies@by_slug');
 Route::get('<(:any)', 'posts@by_slug');
 Route::get('~(:any)', 'users@by_handle');
 

@@ -10,7 +10,6 @@ Reply
 
 @section('main_content')
 @include('posts.view')
-@endif
 <div class="reply_container">
     <form method="post" action="{{ URL::base() }}/reply/new">
         <input type="hidden" name="grandparent_id" value="{{ $post->id }}"/>

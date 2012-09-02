@@ -8,10 +8,7 @@
     <?php $post = $reply->grandparent; ?>
     @include('posts.view')
     <div style="clear: both; margin-bottom: 50px;"></div>
-@section('header')
-    View Reply
-@endsection
-
-@section('main_content')
+    <hr noshade/>
+    <div style="height: 25px"></div>
     @include('replies.single_view')
 @endsection

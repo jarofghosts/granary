@@ -41,15 +41,7 @@ class Replies_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
-            $reply['slug'] = preg_replace('/\W+/', '-', substr($reply['body'], 0, 60));
-            $reply['slug'] = strtolower(trim($reply['slug'], '-'));
-
-            $appendix = 0;
-            $slug_check = $reply['slug'];
-
-            while (Reply::where('grandparent_id', '=', $reply['grandparent_id'])->where('slug', '=', $reply['slug'])->get()) {
-                $reply['slug'] = $slug_check . $appendix;
-            }
+            $reply['slug'] = Reply::generate_slug($reply['body'], $reply['grandparent_id']);
 
             $new_reply = new Reply();
             $new_reply->fill($reply);
@@ -60,13 +52,14 @@ class Replies_Controller extends Base_Controller {
 
             $new_reply->user->add_experience();
 
-            return Redirect::to('/<' . $new_reply->grandparent->slug . '#reply-' . $new_reply->id);
+            return Redirect::to('/!' . $new_reply->grandparent->category->handle . '/<' . $new_reply->grandparent->slug . '#reply-' . $new_reply->id);
         }
 
     }
 
     public function get_view($reply_id)
     {
+        
         $reply = Reply::find($reply_id);
         if ($reply) {
 
@@ -75,6 +68,11 @@ class Replies_Controller extends Base_Controller {
             return View::make('common.error')->with('error_message', 'Reply does not exist.');
         }
 
+    }
+
+    public function get_full_path( $category_handle, $post_slug, $reply_slug )
+    {
+        return $this->get_view(Reply::full_path($category_handle, $post_slug, $reply_slug));
     }
 
 }
