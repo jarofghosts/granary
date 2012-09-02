@@ -1,6 +1,6 @@
 <article class="post" id="post-{{ $post->id }}">
 
-    <h1><a href="{{ URL::base() }}/<{{ $post->slug }}">{{ $post->title }}</a></h1>
+    <h1><a href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">{{ $post->title }}</a></h1>
 
     <div class="user_slug">
         
@@ -16,7 +16,7 @@
         
     </blockquote>
     <div class="reply_count">
-        <a class="button" href="{{ URL::base() }}/<{{ $post->slug }}">replies: {{ count($post->replies) }}</a>
+        <a class="button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">replies: {{ count($post->replies) }}</a>
     </div>
     <div class="post_admin" role="administration">
         @if (Auth::check() && (Auth::user()->id == $post->user->id || Auth::user()->access_level > $post->user->access_level))

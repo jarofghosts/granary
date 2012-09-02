@@ -50,6 +50,20 @@ class Reply extends Eloquent {
 
     }
 
+    public static function generate_slug($body, $post_id)
+    {
+
+            $slug = preg_replace('/\W+/', '-', substr($body, 0, 60));
+            $slug = strtolower(trim($slug, '-'));
+
+            $appendix = 0;
+            $slug_check = $slug;
+
+            while (Reply::where('grandparent_id', '=', $post_id)->where('slug', '=', $slug)->get()) {
+                $slug = $slug_check . $appendix;
+            }
+    }
+
 }
 
 ?>

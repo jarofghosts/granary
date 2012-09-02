@@ -1,13 +1,10 @@
 <?php
 
-/**
- * Handling replies interface
- *
- * @author jarofghosts
- */
 class Replies_Controller extends Base_Controller {
 
-    public function action_get_new($grandparent_id = null, $parent_id = null)
+    public $restful = true;
+
+    public function get_new($grandparent_id = null, $parent_id = null)
     {
 
         if ($grandparent_id != null) {
@@ -23,11 +20,11 @@ class Replies_Controller extends Base_Controller {
 
     }
 
-    public function action_post_new()
+    public function post_new()
     {
-        $author_id = Auth::check() ? Auth::user()->id : 0;
+        $author_id = Auth::user()->id;
         $reply = array(
-            'parent_id' => Input::get('parent_id'),
+            'parent_id' => 0,
             'grandparent_id' => Input::get('grandparent_id'),
             'body' => Input::get('body'),
             'author_id' => $author_id
@@ -68,7 +65,7 @@ class Replies_Controller extends Base_Controller {
 
     }
 
-    public function action_view($reply_id)
+    public function get_view($reply_id)
     {
         $reply = Reply::find($reply_id);
         if ($reply) {
@@ -77,16 +74,6 @@ class Replies_Controller extends Base_Controller {
         } else {
             return View::make('common.error')->with('error_message', 'Reply does not exist.');
         }
-
-    }
-
-    public function action_by_slug($grandparent_slug = null, $slug = null)
-    {
-
-        $grandparent = Post::where('slug', '=', $grandparent_slug)->get();
-        $reply = Reply::where('grandparent_id', '=', $grandparent[0]->id)->where('slug', '=', $slug)->get();
-
-        return $this->action_view($reply[0]->id);
 
     }
 

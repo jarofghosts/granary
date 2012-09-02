@@ -41,7 +41,7 @@ class Posts_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
-            $post['slug'] = Post::generate_slug($post['title']);
+            $post['slug'] = Post::generate_slug($post['title'], $post['category_id']);
 
             $new_post = new Post();
             $new_post->fill($post);
@@ -146,20 +146,26 @@ class Posts_Controller extends Base_Controller {
     public function get_view($post_id = null)
     {
 
-        if ($post_id !== null) {
+        if ($post_id != null) {
             $post = Post::find($post_id);
             if ($post) {
 
-                $this->buildTree($post);
-
                 return View::make('posts.single')->with('post', $post);
-            } else {
 
-                return View::make('common.error')->with('error_message', 'Invalid post ID');
-            }
-        } else {
-            return View::make('common.error')->with('error_message', 'No post ID specified');
-        }
+            } 
+
+            return View::make('common.error')->with('error_message', 'Invalid post ID');
+
+        } 
+
+        return View::make('common.error')->with('error_message', 'No post ID specified');
+
+    }
+
+    public function get_full_path( $category_handle = null, $post_slug = null )
+    {
+
+        return $this->get_view(Post::full_path( $category_handle, $post_slug ));
 
     }
 

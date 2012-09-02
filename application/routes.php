@@ -3,12 +3,8 @@
 Route::get('/', function() {
             return View::make('common.index');
         });
-Route::get('posts/(:num)/reply/(:num)/new', 'replies@get_new');
-Route::get('posts/(:num)/reply/new', 'replies@get_new');
-Route::post('posts/(:num)/reply/(:num)/new', 'replies@post_new');
-Route::post('posts/(:num)/reply/new', 'replies@post_new');
+Route::get('posts/(:num)/reply/new', 'replies@new');
 Route::delete('posts/(:num)', 'posts@remove');
-Route::get('users/settings', 'users@get_settings');
 Route::get('users/(:num)', 'users@index');
 Route::get('posts/(:num)', 'posts@view');
 Route::get('users/new', function() {
@@ -50,6 +46,8 @@ Route::get('categories/(:any)/posts', 'posts@category_handle');
 
 Route::get('~/settings', 'users@get_settings');
 Route::get('!(:any)/posts', 'categories@posts_by_handle');
+Route::get('!(:any)/<(:any)/>(:any)', 'replies@full_path');
+Route::get('!(:any)/<(:any)', 'posts@full_path');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
 Route::get('!(:any)', 'categories@by_handle');
 Route::get('<(:any)/>(:any)', 'replies@by_slug');
