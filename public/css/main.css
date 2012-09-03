@@ -258,7 +258,7 @@ article {
     margin-bottom: -18px;
     color: #333;
     width: 65%;
-    word-break: break-all;
+    white-space: pre-line;
 }
 .post h1 a {
     border: none;

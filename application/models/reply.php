@@ -34,20 +34,9 @@ class Reply extends Eloquent {
 
     }
 
-    public function replies()
-    {
-
-        return $this->has_many('Reply', 'parent_id');
-
-    }
-
-    public function get_body()
-    {
-        $body = $this->get_attribute('body');
-        $body = str_replace('<', '&lt;', $body);
-        $body = str_replace('>', '&gt;', $body);
-        return $body;
-
+    public function set_body($source) {
+        $this->set_attribute('body_source', $source);
+        $this->set_attribute('body', Sparkdown\Markdown ( $source ));
     }
 
     public static function generate_slug($body, $post_id)

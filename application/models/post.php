@@ -34,7 +34,8 @@ class Post extends Eloquent {
 
     }
 
-    public static function generate_slug($title, $category_id) {
+    public static function generate_slug($title, $category_id)
+    {
 
         // replace all non letters or digits with -, chomp it to 60 characters
         $slug = preg_replace('/\W+/', '-', $title);

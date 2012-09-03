@@ -11,13 +11,6 @@ class Posts_Controller extends Base_Controller {
 
     }
 
-    public function get_php_ver()
-
-    {
-
-        return phpinfo();
-    }
-
     public function post_new()
     {
         $author_id = Auth::check() ? Auth::user()->id : 0;
@@ -45,6 +38,9 @@ class Posts_Controller extends Base_Controller {
 
             $new_post = new Post();
             $new_post->fill($post);
+            $new_post->save();
+
+            $new_post->default_order = $new_post->created_at;
             $new_post->save();
 
             $new_post->user->add_experience(2);

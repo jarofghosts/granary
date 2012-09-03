@@ -215,15 +215,22 @@ class User extends Eloquent {
                 array_push($ignored_users, $user->jerk_id);
             }
 
+            Cache::forever($username . '&jerk_ignores', $ignored_users);
+
         }
 
-        return Post::where('active', '=', 1)
-                ->where_not_in('category_id', $excluded_categories)
-                ->where_not_in('author_id', $ignored_users)
-                ->order_by('created_at', 'desc')
+        $query = Post::where('active', '=', 1)
+                ->order_by('default_order', 'desc')
                 ->take($take)
-                ->skip($skip)
-                ->get();
+                ->skip($skip);
+
+        if ($excluded_categories) {
+            $query->where_not_in('category_id', $excluded_categories);
+        }
+        if ($ignored_users) {
+            $query->where_not_in('author_id', $ignored_users);
+        }
+            return $query->get();
 
     }
 
@@ -233,6 +240,47 @@ class User extends Eloquent {
         ->where('categories.access_required', '<=', $this->get_attribute('access_level'))
         ->get(), 'forever');
 
+    }
+
+    public function can_edit($category_id)
+    {
+        $category = Category::find($category_id);
+
+        if ($category->creator_id == $this->get_attribute('id') 
+            || $this->get_attribute('access_level') > $category->creator->access_level
+            || DB::table('user_category')->where('user_id', '=', $this->get_attribute('id')
+                ->where('category_id', '=', $category_id))->count() > 0)
+        {
+            return true;
+        }
+            return false;
+    }
+
+    public function can_edit_post($post_id)
+    {
+
+        $post = Post::find($post_id);
+
+        if ($post->author_id == $this->get_attribute('id')
+         || $this->get_attribute('access_level') > $post->user->access_level
+         || ( $this->can_edit($post->category_id) && $post->user->access_level <= $this->get_attribute('access_level')))
+        {
+            return true;
+        }
+            return false;
+    }
+
+    public function can_edit_reply($reply_id)
+    {
+        $reply = Reply::find($reply_id);
+
+        if ($reply->author_id == $this->get_attribute('id')
+         || $this->get_attribute('access_level') > $reply->user->access_level
+         || ( $this->can_edit($reply->grandfather->category_id) && $reply->user->access_level <= $this->get_attribute('access_level')))
+        {
+            return true;
+        }
+            return false;
     }
 
 

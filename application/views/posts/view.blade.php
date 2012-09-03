@@ -24,4 +24,5 @@
         <a class="post-delete button" href="{{ URL::base() }}/posts/delete/{{ $post->id }}">delete</a>
         @endif
     </div>
+    
 </article>

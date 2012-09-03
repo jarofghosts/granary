@@ -15,6 +15,7 @@ class Create_Replies {
                     $table->integer('parent_id')->index();
                     $table->integer('grandparent_id')->index();
                     $table->text('body');
+                    $table->text('body_source');
                     $table->string('slug', 64);
                     $table->boolean('active')->default(1);
                     $table->integer('up_votes');
