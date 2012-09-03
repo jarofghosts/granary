@@ -3,6 +3,7 @@
 @if (Auth::check() && (Auth::user()->can_edit($category->id)))
 <a class="button" href="{{ URL::base() }}/categories/edit/{{ $category->id }}">edit</a>
 @endif
+<?php $posts = $category->posts; ?>
 <br/>created by <a href="{{ URL::base() }}/~{{ $category->creator->username }}">{{ $category->creator->display_name }}</a> <em>(posts: {{ count($posts) }})</em>
 <br/>@if ( Auth::check() )
 @if (Auth::user()->excludes($category->id))

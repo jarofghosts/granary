@@ -16,44 +16,51 @@ class Categories_Controller extends Base_Controller {
         $input = Input::all();
 
         $rules = array(
+
             'title' => 'required|unique:categories|max:128',
-            'logo' => 'url',
             'handle' => 'required|alpha_dash|unique:categories|min:1|max:32',
-            'description' => 'required|min:3',
+            'description' => 'required|min:3'
+
         );
+
+        $rules['logo'] = $input['logo_switch'] == 0 ? $rules['logo'] = 'url' : $rules['logo'] = 'image';
 
         $validation = Validator::make($input, $rules);
 
         if ($validation->fails()) {
+
             return View::make('common.error')->with('errors', $validation->errors)
-                            ->with('error_message', 'Form validation errors');
+                        ->with('error_message', 'Form validation errors');
+
         } else {
 
-            $logo_uri = Input::get('logo');
+            if ($input['logo_switch'] == 0)
+            {
 
-            $logo_bernie = new Bernie;
+                $logo_uri = Input::get('logo');
 
-            $new_logo = $logo_bernie->migrate($logo_uri, "attic/categories/");
+                $logo_bernie = new Bernie;
 
-            $input['logo'] = $new_logo;
+                $new_logo = $logo_bernie->migrate($logo_uri, "attic/categories/");
 
-            if ($logo_bernie->getHeight() > $logo_bernie->getWidth() && $logo_bernie->getHeight() > 320) {
-                $logo_bernie->resizeToHeight(320);
-            } elseif ($logo_bernie->getWidth() > $logo_bernie->getHeight() && $logo_bernie->getWidth() > 320) {
-                $logo_bernie->resizeToWidth(320);
+                $input['logo'] = $new_logo;
+
+                Bernie::format($new_logo);
+
+            } else {
+
+                //@todo file upload
+
             }
 
-            $logo_bernie->save($new_logo);
+            unset($input['logo_switch']);
 
             $new_category = new Category;
-
             $new_category->fill($input);
-
             $new_category->save();
 
-            $id = $new_category->id;
+            return Redirect::to_action('categories@view', array('id' => $new_category->id));
 
-            return Redirect::to_action('categories@view', array('id' => $id));
         }
 
     }
@@ -83,46 +90,44 @@ class Categories_Controller extends Base_Controller {
         $input = Input::all();
 
         $rules = array(
+
             'title' => 'required|unique:categories,title,' . $input['id'] . '|max:128',
             'description' => 'required|min:3',
-            'logo' => 'url',
             'handle' => 'alpha_dash|unique:categories,handle,' . $input['id'] . '|min:1|max:32'
+
         );
+
+        $rules['logo'] = $input['logo_switch'] == 0 ? $rules['logo'] = 'url' : $rules['logo'] = 'image';
 
         $validation = Validator::make($input, $rules);
 
         if ($validation->fails()) {
+
             return View::make('common.error')->with('errors', $validation->errors)
-                            ->with('error_message', 'Form validation errors');
+                        ->with('error_message', 'Form validation errors');
+
         } else {
 
             $logo_uri = Input::get('logo', FALSE);
 
-            $logo_uri = Input::get('logo');
-
             if ($logo_uri !== FALSE) {
+                
                 $logo_bernie = new Bernie;
 
                 $new_logo = $logo_bernie->migrate($logo_uri, "attic/categories/");
 
                 $input['logo'] = $new_logo;
 
-                if ($logo_bernie->getHeight() > $logo_bernie->getWidth() && $logo_bernie->getHeight() > 320) {
-                    $logo_bernie->resizeToHeight(320);
-                } elseif ($logo_bernie->getWidth() > $logo_bernie->getHeight() && $logo_bernie->getWidth() > 320) {
-                    $logo_bernie->resizeToWidth(320);
-                }
+                Bernie::format($new_logo);
 
-                $logo_bernie->save($new_logo);
             }
 
             $category = Category::find(Input::get('id'));
-
             $category->fill($input);
-
             $category->save();
 
             return Redirect::to_action('categories@view', array('id' => $input['id']));
+
         }
 
     }
@@ -142,20 +147,21 @@ class Categories_Controller extends Base_Controller {
         if ($category_id != null) {
 
             $category = Category::find($category_id);
-            $posts = $category->posts;
-            $posts = $category->posts();
 
-            return View::make('categories.single')->with('category', $category)->with('posts', $posts);
-        } else {
-            return View::make('common.error')->with('error_message', 'No category specified to view');
+            return View::make('categories.single')->with('category', $category);
+
         }
+
+        return View::make('common.error')->with('error_message', 'No category specified to view');
 
     }
 
     public function get_by_handle($category_handle = null)
     {
 
-        $category_id = Category::where('handle', '=', $category_handle)->take(1)->only('id');
+        $category_id = Category::where('handle', '=', $category_handle)
+        ->take(1)
+        ->only('id');
 
         if ($category_id) {
 
@@ -176,6 +182,34 @@ class Categories_Controller extends Base_Controller {
             return View::make('categories.not_found')->with('results', $results)->with('possibilities', $search);
         }
 
+    }
+
+    public function get_posts_by_handle($category_handle = null)
+    {
+        $category_id = Category::where('handle', '=', $category_handle)
+        ->take(1)
+        ->only('id');
+
+        if ($category_id)
+        {
+        
+            $query = Post::where('category_id', '=', $category_id)
+            ->where('active', '=', 1)
+            ->order_by('default_order', 'desc')
+            ->take(15);
+
+            if ($ignored_users = Auth::user()->ignored_users())
+            {
+                $query->where_not_in('author_id', $ignored_users);
+            }
+
+            $posts = $query->get();
+
+            return View::make('posts.list')->with('posts', $posts);
+
+        }
+
+        return View::make('common.error')->with('error_message', 'Invalid category');
     }
 
 }

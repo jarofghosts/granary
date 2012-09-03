@@ -4,15 +4,15 @@ class Bernie {
 
     static $image;
     static $image_type;
-    static $directory = './';
+    static $directory = './public/';
 
     public static function migrate($uri = null, $save_path = "basement/")
     {
-        $local_path = "./";
+        $local_path = "./public/";
 
-        $new_file = preg_replace('/\W+/', '-', substr(Hash::make(time() . $uri), 10));
-        $new_file = strtolower(trim($new_file, '-'));
-        $new_file .= str_replace('/', '', substr($uri, -6));
+        $new_file = self::generate_filename($uri);
+
+        chmod($local_path . $save_path, '0777');
 
         $file = fopen($uri, "rb");
         if ($file) {
@@ -35,6 +35,49 @@ class Bernie {
         self::load($save_path . $new_file);
         
         return "/" . $save_path . $new_file;
+
+    }
+
+    public static function generate_filename($uri)
+    {
+
+        $new_file = preg_replace('/\W+/', '-', substr(Hash::make(time() . $uri), 10));
+        $new_file = strtolower(trim($new_file, '-'));
+        switch (self::$image_type) {
+            
+            case 'IMAGETYPE_JPEG' :
+                $new_file .= '.jpg';
+                break;
+            case 'IMAGETYPE_GIF' :
+                $new_file .= '.gif';
+                break;
+            case 'IMAGETYPE_PNG' :
+                $new_file .= '.png';
+                break;
+            default :
+                $new_file .= '.jpg';
+                break;
+
+        }
+
+        return $new_file;
+
+    }
+
+    public static function format($filename)
+    {
+
+        if (self::getHeight() > self::getWidth() && self::getHeight() > 320) {
+
+            self::resizeToHeight(320);
+
+        } elseif (self::getWidth() > self::getHeight() && self::getWidth() > 320) {
+
+            self::resizeToWidth(320);
+
+        }
+
+        self::save($filename);
 
     }
 

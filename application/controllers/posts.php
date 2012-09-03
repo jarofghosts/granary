@@ -4,34 +4,39 @@ class Posts_Controller extends Base_Controller {
 
     public $restful = true;
 
-    public function get_new()
+    public function get_new( $category_id = null )
     {
 
-        return View::make('posts.new');
+        return View::make('posts.new')->with('category_id', $category_id);
 
     }
 
     public function post_new()
     {
-        $author_id = Auth::check() ? Auth::user()->id : 0;
 
         $post = array(
+
             'title' => Input::get('title'),
             'body' => Input::get('body'),
             'category_id' => Input::get('category_id'),
-            'author_id' => $author_id
+            'author_id' => Auth::user()->id
+
         );
 
         $rules = array(
+
             'title' => 'required|max:128',
             'body' => 'required'
+
         );
 
         $validation = Validator::make($post, $rules);
 
         if ($validation->fails()) {
+
             return View::make('common.error')->with('errors', $validation->errors)
-                            ->with('error_message', 'Form validation errors');
+                        ->with('error_message', 'Form validation errors');
+
         } else {
 
             $post['slug'] = Post::generate_slug($post['title'], $post['category_id']);
@@ -60,6 +65,7 @@ class Posts_Controller extends Base_Controller {
             if ($post) {
 
                 if (Auth::user()->can_edit_post($id)) {
+                    
                     return View::make('posts.edit')->with('post', $post);
 
                 }
@@ -160,9 +166,15 @@ class Posts_Controller extends Base_Controller {
 
     public function get_full_path( $category_handle = null, $post_slug = null )
     {
-
         return $this->get_view(Post::full_path( $category_handle, $post_slug ));
-
+    }
+    public function get_full_path_new( $category_handle = null )
+    {
+        return $this->get_new(Category::where('handle', '=', $category_handle)->only('id'));
+    }
+    public function post_full_path_new( $category_handle = null )
+    {
+        return $this->post_new();
     }
 
 }

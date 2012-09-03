@@ -51,18 +51,12 @@ class Users_Controller extends Base_Controller {
             if (Input::get('avatar', FALSE) !== FALSE) {
 
                 $avatar_bernie = new Bernie;
-
                 $new_avatar = $avatar_bernie->migrate(Input::get('avatar'), "attic/users/");
 
                 $input['avatar'] = $new_avatar;
 
-                if ($avatar_bernie->getHeight() > $avatar_bernie->getWidth() && $avatar_bernie->getHeight() > 320) {
-                    $avatar_bernie->resizeToHeight(320);
-                } elseif ($avatar_bernie->getWidth() > $avatar_bernie->getHeight() && $avatar_bernie->getWidth() > 320) {
-                    $avatar_bernie->resizeToWidth(320);
-                }
+                Bernie::format($new_avatar);
 
-                $avatar_bernie->save($new_avatar);
             }
 
 
@@ -120,19 +114,15 @@ class Users_Controller extends Base_Controller {
         } else {
 
             if (isset($user_data['avatar'])) {
+
                 $avatar_bernie = new Bernie;
 
                 $new_avatar = $avatar_bernie->migrate(Input::get('avatar'), "attic/users/");
 
                 $user_data['avatar'] = $new_avatar;
 
-                if ($avatar_bernie->getHeight() > $avatar_bernie->getWidth() && $avatar_bernie->getHeight() > 320) {
-                    $avatar_bernie->resizeToHeight(320);
-                } elseif ($avatar_bernie->getWidth() > $avatar_bernie->getHeight() && $avatar_bernie->getWidth() > 320) {
-                    $avatar_bernie->resizeToWidth(320);
-                }
+                Bernie::format($new_avatar);
 
-                $avatar_bernie->save($new_avatar);
             }
 
             $user = User::find($user_id);
@@ -169,9 +159,11 @@ class Users_Controller extends Base_Controller {
 
                 return Redirect::to('/');
             }
+            
         } else {
 
             return View::make('common.error')->with('error_message', 'Incorrect login information.');
+
         }
 
     }
@@ -254,6 +246,7 @@ class Users_Controller extends Base_Controller {
             $search = User::where('active', '=', 1)->where('username', 'LIKE', '%' . $user_handle . '%')
                     ->get();
             return View::make('users.not_found')->with('possibilities', $search);
+
         }
 
     }

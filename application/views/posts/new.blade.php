@@ -6,8 +6,12 @@
 
 @section('main_content')
 <form method="post" action="new" id="post_form">
-
-    <br/>Category: 
+<?php
+if ($category_id) {
+    $category = Category::find($category_id);
+}
+?>
+    <br/>Category: @if (!$category)
     <select name="category_id" id="category_select">
     @foreach (Auth::user()->category_list() as $category)
 
@@ -15,6 +19,10 @@
 
     @endforeach
     </select><br/>
+    @else
+    <strong>{{ $category->title }}</strong><br/>
+    <input type="hidden" name="category_id" value="{{ $category_id }}"/>
+    @endif
     <input type="text" name="title" placeholder="Title"/><br/>
     <textarea name="body" placeholder="Body" class="post_body_input" style="background-color: {{ Auth::user()->color }};"></textarea><br/>
     <button type="submit">Submit</button>
