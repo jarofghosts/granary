@@ -185,7 +185,7 @@ class Users_Controller extends Base_Controller {
 
                 $new_user = new User;
                 $new_user->username = substr($new_username, 0, 24);
-                $new_user->password = Session::get('temp_password');
+                $new_user->set_attribute('password', Session::get('temp_password'));
                 $new_user->save();
 
                 Session::forget('temp_password');
@@ -201,6 +201,7 @@ class Users_Controller extends Base_Controller {
 
                 Auth::login($new_user->id);
                 return Redirect::to('/');
+
             } else {
                 Session::forget('temp_password');
                 return View::make('users.login_form');
@@ -247,9 +248,8 @@ class Users_Controller extends Base_Controller {
         if ($user) {
 
             return $this->action_index($user[0]->id);
-            
-        } else {
 
+        } else {
 
             $search = User::where('active', '=', 1)->where('username', 'LIKE', '%' . $user_handle . '%')
                     ->get();

@@ -14,8 +14,9 @@ $(document).ready( function() {
 				fadeOut();
 			$(".tab_current").removeClass('tab_current');
 
-			$(new_tab).css('position', 'relative').
-				show('slide', { direction: 'left' });
+			$(new_tab).show('slide', { direction: 'left' }, function() {
+				$(new_tab).css('position', 'relative');
+			});
 			$(new_tab).addClass('tab_current');
 
 			$(".current").removeClass('current');

@@ -127,3 +127,6 @@ div.center_action {
 .exclusion_head a {
     border: none;
 }
+.exclusions {
+    position: relative;
+}

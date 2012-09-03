@@ -1,6 +1,7 @@
 <div class="profile_image">
     <img src="{{ URL::base() }}{{ $user->avatar }}" alt="{{ $user->display_name }}"/>
 </div>
+
 <div class="profile_summary">
     @if ($user->activity || $user->id == 1)
     <strong>Online</strong>
@@ -25,6 +26,7 @@
     @endif
     @endif
 </div>
+
 <div style="clear: both;"></div>
 <blockquote class="profile_block" style="background-color: {{ $user->color }}">{{ Sparkdown\Markdown ($user->about_me) }}</blockquote><br/>
 @if (Auth::check())

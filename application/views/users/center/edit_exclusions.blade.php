@@ -1,8 +1,8 @@
 <h1 class="subtitle">Excluded Categories</h1>
 <?php 
 
-	$categories = Auth::user()->exclusions; 
-	$users = Auth::user()->ignore;
+	$categories = Auth::user()->excluded(); 
+	$users = Auth::user()->ignored();
 
 	$category_count = count($categories);
 	$user_count = count($users);
@@ -18,7 +18,8 @@
 
 <div id="excluded_cats" class="exclusions" style="display: none">
 	@foreach ($categories as $category)
-		
+		<?php $posts = count($category->posts); ?>
+		@include('categories.view')
 	@endforeach
 </div>
 

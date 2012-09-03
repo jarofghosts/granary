@@ -44,20 +44,6 @@ class User extends Eloquent {
 
     }
 
-    public function exclusions()
-    {
-
-        return $this->has_many('Exclusion');
-
-    }
-
-    public function ignore()
-    {
-
-        return $this->has_many('Ignore');
-
-    }
-
     public function unread_messages()
     {
 
@@ -173,27 +159,37 @@ class User extends Eloquent {
     public function post_list( $take = 15, $skip = 0 )
     {
 
-        $username = $this->get_attribute('username');
-        $user_id = $this->get_attribute('id');
+        $excluded_categories = $this->excluded_categories();
+        $ignored_users = $this->ignored_users();
 
-        $excluded_categories = Cache::get($username . '&cat_excludes');
+        $query = Post::where('active', '=', 1)
+                ->order_by('default_order', 'desc')
+                ->take($take)
+                ->skip($skip);
 
-        if ( $excluded_categories === NULL )
-        {
-        
-            $categories = DB::table('user_category_exclusions')
-            ->where('user_id', '=', $user_id)
-            ->get(array('category_id'));
-
-            $excluded_categories = array();
-
-            foreach ($categories as $category) {
-               array_push($excluded_categories, $category->category_id);
-            }
-
-            Cache::forever($username . '&cat_excludes', $excluded_categories);
-
+        if ($excluded_categories) {
+            $query->where_not_in('category_id', $excluded_categories);
         }
+        if ($ignored_users) {
+            $query->where_not_in('author_id', $ignored_users);
+        }
+            return $query->get();
+
+    }
+
+    public function category_list() {
+
+        return Cache::remember($this->get_username . '&cat_list', Category::where('categories.active', '=', 1)
+        ->where('categories.access_required', '<=', $this->get_attribute('access_level'))
+        ->get(), 'forever');
+
+    }
+
+    public function ignored_users()
+    {
+
+        $username = $this->get_attribute('username');
+        $user_id = $this->get_attribute('user_id');
 
         $ignored_users = Cache::get($username . '&jerk_ignores');
 
@@ -216,26 +212,51 @@ class User extends Eloquent {
 
         }
 
-        $query = Post::where('active', '=', 1)
-                ->order_by('default_order', 'desc')
-                ->take($take)
-                ->skip($skip);
-
-        if ($excluded_categories) {
-            $query->where_not_in('category_id', $excluded_categories);
-        }
-        if ($ignored_users) {
-            $query->where_not_in('author_id', $ignored_users);
-        }
-            return $query->get();
+        return $ignored_users;
 
     }
 
-    public function category_list() {
+    public function excluded_categories()
+    {
 
-        return Cache::remember($this->get_username . '&cat_list', Category::where('categories.active', '=', 1)
-        ->where('categories.access_required', '<=', $this->get_attribute('access_level'))
-        ->get(), 'forever');
+        $username = $this->get_attribute('username');
+        $user_id = $this->get_attribute('user_id');
+
+        $excluded_categories = Cache::get($username . '&cat_excludes');
+
+        if ( $excluded_categories === NULL )
+        {
+        
+            $categories = DB::table('user_category_exclusions')
+            ->where('user_id', '=', $user_id)
+            ->get(array('category_id'));
+
+            $excluded_categories = array();
+
+            foreach ($categories as $category) {
+               array_push($excluded_categories, $category->category_id);
+            }
+
+            Cache::forever($username . '&cat_excludes', $excluded_categories);
+
+        }
+
+        return $excluded_categories;
+    }
+
+    public function ignored() {
+
+        $ignored_users = $this->ignored_users();
+        return User::where_in('id', $ignored_users)
+        ->get();
+
+    }
+
+    public function excluded() {
+
+        $excluded_categories = $this->excluded_categories();
+        return Category::where_in('id', $excluded_categories)
+        ->get();
 
     }
 
