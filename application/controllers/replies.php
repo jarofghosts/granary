@@ -79,12 +79,28 @@ class Replies_Controller extends Base_Controller {
         if ($reply)
         {
 
-            return View::make('replies.edit')->with('reply', $reply);
+            return View::make('replies.edit')
+            ->with('reply', $reply)
+            ->with('post', $reply->grandparent);
 
         }
 
         return View::make('common.error')->with('error_message', 'Reply does not exist.');
 
+    }
+
+    public function post_edit()
+    {
+        $reply = Reply::find(Input::get('reply_id'));
+
+        if ($reply)
+        {
+
+            $reply->body = Input::get('body');
+            $reply->save();
+            return Redirect::to('/!' . $reply->grandparent->category->handle . '/<' . $reply->grandparent->slug . '#reply-' . $reply->id );
+
+        }
     }
 
     public function delete_remove($reply_id)
@@ -120,7 +136,7 @@ class Replies_Controller extends Base_Controller {
         return $this->post_edit(Reply::full_path($category_handle, $post_slug, $reply_slug));
     }
 
-    public function post_full_path_delete(( $category_handle, $post_slug, $reply_slug )
+    public function get_full_path_delete( $category_handle, $post_slug, $reply_slug )
     {
         return $this->delete_remove(Reply::full_path($category_handle, $post_slug, $reply_slug));
     }

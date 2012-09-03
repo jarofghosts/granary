@@ -7,9 +7,6 @@ $(document).ready( function() {
 		if (!$(new_tab).hasClass('tab_current')) 
 		{
 
-			$(".center_action").animate({ height: $(new_tab).
-				height() })
-
 			$(".tab_current").css('position', 'absolute').
 				fadeOut();
 			$(".tab_current").removeClass('tab_current');

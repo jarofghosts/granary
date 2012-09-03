@@ -15,7 +15,9 @@ class Post extends Eloquent {
     {
 
         // this will only pull top-level replies.
-        return $this->has_many('Reply', 'grandparent_id')->where('parent_id', '=', '0');
+        return $this->has_many('Reply', 'grandparent_id')
+        ->where('parent_id', '=', '0')
+        ->where('active', '=', 1);
 
     }
 

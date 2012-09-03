@@ -25,12 +25,9 @@
     <a class="button" href="{{ URL::base() }}/ignores/jerk/{{ $user->id }}">ignore</a>
     @endif
     @endif
-</div>
-
-<div style="clear: both;"></div>
-<blockquote class="profile_block" style="background-color: {{ $user->color }}">{{ Sparkdown\Markdown ($user->about_me) }}</blockquote><br/>
 @if (Auth::check())
 @if (Auth::user()->can_edit_user($user->id))
 <a class="button" href="{{ URL::base() }}/users/edit/{{ $user->id }}">edit</a>
 @endif
 @endif
+</div>

@@ -312,6 +312,7 @@ blockquote {
 .reply {
     width: 85%;
     margin: auto;
+    position: relative;
 }
 .reply_container {
     border: 1px solid #555;

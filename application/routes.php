@@ -42,17 +42,16 @@ Route::controller('messages');
 Route::controller('ignores');
 Route::controller('groups');
 
-Route::get('categories/(:any)', 'categories@by_handle');
-Route::get('categories/(:any)/posts', 'posts@category_handle');
-
 Route::get('~/settings', 'users@get_settings');
-Route::get('!(:any)/posts', 'categories@posts_by_handle');
+Route::get('~(:any)/posts', 'users@posts_by_handle');
+Route::get('~(:any)', 'users@by_handle');
+
+Route::get('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
+Route::get('!(:any)/<(:any)/>(:any)/delete', 'replies@full_path_delete');
+Route::post('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
 Route::get('!(:any)/<(:any)/>(:any)', 'replies@full_path');
 Route::get('!(:any)/<(:any)', 'posts@full_path');
-Route::get('~(:any)/posts', 'users@posts_by_handle');
-Route::get('!(:any)', 'categories@by_handle');
-Route::get('<(:any)', 'posts@by_slug');
-Route::get('~(:any)', 'users@by_handle');
+Route::get('!(:any)', 'categories@posts_by_handle');
 
 Event::listen('404', function() {
             return Response::error('404');
@@ -61,13 +60,14 @@ Event::listen('404', function() {
 Event::listen('500', function() {
             return Response::error('500');
         });
-
+Route::filter('pattern: */edit', 'auth');
+Route::filter('pattern: messages/*', 'auth');
+Route::filter('pattern: ~/settings', 'auth');
 Route::filter('before', function() {
             if (!(Auth::check()) &&
-                    ((substr_count(URI::current(), 'new')) && URI::segment(1) != 'users' ||
-                    ((substr_count(URI::current(), 'edit'))) || URI::segment(1) == 'messages')) {
+                    ((substr_count(URI::current(), 'new')) && URI::segment(1) != 'users' )){
                 Session::put('pre_login', URI::current());
-                return Redirect::to('users/login');
+                return Redirect::to('/login');
             }
            
         });
