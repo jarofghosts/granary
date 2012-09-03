@@ -61,18 +61,68 @@ class Replies_Controller extends Base_Controller {
     {
         
         $reply = Reply::find($reply_id);
-        if ($reply) {
+        if ($reply)
+        {
 
             return View::make('replies.single')->with('reply', $reply);
-        } else {
-            return View::make('common.error')->with('error_message', 'Reply does not exist.');
+       
         }
+       
+        return View::make('common.error')->with('error_message', 'Reply does not exist.');
 
     }
+
+    public function get_edit($reply_id)
+    {
+
+        $reply = Reply::find($reply_id);
+        if ($reply)
+        {
+
+            return View::make('replies.edit')->with('reply', $reply);
+
+        }
+
+        return View::make('common.error')->with('error_message', 'Reply does not exist.');
+
+    }
+
+    public function delete_remove($reply_id)
+    {
+
+        $reply = Reply::find($reply_id);
+
+        if ($reply)
+        {
+            $reply->active = 0;
+            $reply->save();
+            return Redirect::to('/!' . $reply->grandparent->category->handle . '/<' . $reply->grandparent->slug);
+        }
+
+        return View::make('common.error')->with('error_message', 'Reply does not exist');
+
+    }
+
+    // Wrappers
 
     public function get_full_path( $category_handle, $post_slug, $reply_slug )
     {
         return $this->get_view(Reply::full_path($category_handle, $post_slug, $reply_slug));
+    }
+
+    public function get_full_path_edit( $category_handle, $post_slug, $reply_slug )
+    {
+        return $this->get_edit(Reply::full_path($category_handle, $post_slug, $reply_slug));
+    }
+
+    public function post_full_path_edit( $category_handle, $post_slug, $reply_slug )
+    {
+        return $this->post_edit(Reply::full_path($category_handle, $post_slug, $reply_slug));
+    }
+
+    public function post_full_path_delete(( $category_handle, $post_slug, $reply_slug )
+    {
+        return $this->delete_remove(Reply::full_path($category_handle, $post_slug, $reply_slug));
     }
 
 }

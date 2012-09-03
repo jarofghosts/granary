@@ -44,9 +44,9 @@ class Ignores_Controller extends Base_Controller {
     {
 
         if ($category_id) {
-            $exclude = new Exclude(array('category_id' => $category_id));
+            $exclude = new Exclusion(array('category_id' => $category_id));
 
-            Auth::user()->exclude()->insert($exclude);
+            Auth::user()->exclusions()->insert($exclude);
 
             $handle = Category::where('id', '=', $category_id)
             ->take(1)

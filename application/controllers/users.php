@@ -78,7 +78,7 @@ class Users_Controller extends Base_Controller {
             $preference_defaults = array(
                 'id' => $new_user->id,
                 'front_page_posts' => 15,
-                'account_type' => 1
+                'bot_messages' => 1
             );
             $preference->fill($preference_defaults);
             $preference->save();
@@ -194,7 +194,7 @@ class Users_Controller extends Base_Controller {
                 $preference_defaults = array(
                     'id' => $new_user->id,
                     'front_page_posts' => 15,
-                    'account_type' => 1
+                    'bot_messages' => 1
                 );
                 $preference->fill($preference_defaults);
                 $preference->save();
@@ -247,6 +247,7 @@ class Users_Controller extends Base_Controller {
         if ($user) {
 
             return $this->action_index($user[0]->id);
+            
         } else {
 
 

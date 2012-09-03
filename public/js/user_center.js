@@ -25,4 +25,19 @@ $(document).ready( function() {
 
 	});
 
+	$(".exclusion_head").bind('click', function() {
+
+		new_tab = $(this).children('a').attr('href');
+
+		if ( $(new_tab).is(':visible')) {
+			$(new_tab).hide('blinds');
+		} else {
+			$(new_tab).show('blinds');
+		}
+	});
+
+	$(".exclusion_head a").bind('click', function(e) {
+		e.preventDefault();
+	});
+
 });

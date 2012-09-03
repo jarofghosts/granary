@@ -47,7 +47,7 @@ class User extends Eloquent {
     public function exclusions()
     {
 
-        return $this->has_many('User_category_exclusion');
+        return $this->has_many('Exclusion');
 
     }
 
@@ -125,6 +125,7 @@ class User extends Eloquent {
             $display_name = $prefix . $this->get_attribute('username');
 
             Cache::forever($this->get_attribute('username') . '&display_name', $display_name);
+
         }
         
         return $display_name;
@@ -149,15 +150,16 @@ class User extends Eloquent {
         } else {
 
             return $this->get_attribute('avatar');
+
         }
 
     }
 
     public function get_enrolled_categories()
     {
-        $user_rules = DB::table('users_categories')
+        $user_rules = DB::table('user_category')
         ->where('user_id', '=', $this->get_attribute('id'))
-        ->get(array('users_categories.category_id'));
+        ->get(array('user_category.category_id'));
 
         $group_rules = DB::table('group_category')
         ->join('group_user', 'user_id', '=', $this->get_attribute('id'))
@@ -165,11 +167,6 @@ class User extends Eloquent {
         -get(array('group_category.category_id'));
 
         return array_merge($user_rules, $group_rules);
-
-    }
-
-    public function get_can_read( $category_id )
-    {
 
     }
 
@@ -236,7 +233,7 @@ class User extends Eloquent {
 
     public function category_list() {
 
-        return Cache::remember($this->get_username . '&cat_list',Category::where('categories.active', '=', 1)
+        return Cache::remember($this->get_username . '&cat_list', Category::where('categories.active', '=', 1)
         ->where('categories.access_required', '<=', $this->get_attribute('access_level'))
         ->get(), 'forever');
 
@@ -246,14 +243,18 @@ class User extends Eloquent {
     {
         $category = Category::find($category_id);
 
-        if ($category->creator_id == $this->get_attribute('id') 
+        if ( $category->creator_id == $this->get_attribute('id') 
             || $this->get_attribute('access_level') > $category->creator->access_level
-            || DB::table('user_category')->where('user_id', '=', $this->get_attribute('id')
-                ->where('category_id', '=', $category_id))->count() > 0)
+            || DB::table('user_category')->where('user_id', '=', $this->get_attribute('id'))
+                ->where('category_id', '=', $category_id)
+                ->count() > 0)
         {
+
             return true;
+
         }
-            return false;
+
+        return false;
     }
 
     public function can_edit_post($post_id)
@@ -265,9 +266,13 @@ class User extends Eloquent {
          || $this->get_attribute('access_level') > $post->user->access_level
          || ( $this->can_edit($post->category_id) && $post->user->access_level <= $this->get_attribute('access_level')))
         {
+
             return true;
+
         }
-            return false;
+
+        return false;
+
     }
 
     public function can_edit_reply($reply_id)
@@ -278,9 +283,29 @@ class User extends Eloquent {
          || $this->get_attribute('access_level') > $reply->user->access_level
          || ( $this->can_edit($reply->grandfather->category_id) && $reply->user->access_level <= $this->get_attribute('access_level')))
         {
+
             return true;
+
         }
-            return false;
+
+        return false;
+
+    }
+
+    public function can_edit_user($user_id)
+    {
+        $user = User::find($user_id);
+
+        if ($user->id == $this->get_attribute('id')
+            || $this->get_attribute('access_level') > $user->access_level )
+        {
+
+            return true;
+
+        }
+
+        return false;
+
     }
 
 

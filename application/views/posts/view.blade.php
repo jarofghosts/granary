@@ -19,7 +19,7 @@
         <a class="button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">replies: {{ count($post->replies) }}</a>
     </div>
     <div class="post_admin" role="administration">
-        @if (Auth::check() && (Auth::user()->id == $post->user->id || Auth::user()->access_level > $post->user->access_level))
+        @if (Auth::check() && (Auth::user()->can_edit_post($post->id)))
         <a class="post-edit button" href="{{ URL::base() }}/posts/edit/{{ $post->id }}">edit</a>
         <a class="post-delete button" href="{{ URL::base() }}/posts/delete/{{ $post->id }}">delete</a>
         @endif

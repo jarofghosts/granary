@@ -26,7 +26,7 @@ class Create_Users_Categories {
 	 */
 	public function down()
 	{
-		Schema::drop('users_categories');
+		Schema::drop('user_category');
 	}
 
 }

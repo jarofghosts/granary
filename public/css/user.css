@@ -114,3 +114,16 @@ div.center_action {
 .avatar_box {
 	float: right;
 }
+.exclusion_head {
+    width: 90%;
+    border: 1px solid #333;
+    border-bottom: 2px solid #333;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.exclusion_head a {
+    border: none;
+}

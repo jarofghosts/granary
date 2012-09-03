@@ -1,14 +1,3 @@
-@layout('common.template')
-
-@section('title')
-{{ $user->display_name }}
-@endsection
-
-@section('header')
-{{ $user->display_name }}
-@endsection
-
-@section('main_content')
 <div class="profile_image">
     <img src="{{ URL::base() }}{{ $user->avatar }}" alt="{{ $user->display_name }}"/>
 </div>
@@ -43,8 +32,3 @@
 <a class="button" href="{{ URL::base() }}/users/edit/{{ $user->id }}">edit</a>
 @endif
 @endif
-@endsection
-
-@section('footer')
-
-@endsection

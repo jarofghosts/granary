@@ -16,7 +16,7 @@
 My content
 </div>
 <div style="display: none" id="center_exclusions">
-Exclusions
+@include('users.center.edit_exclusions')
 </div>
 @if (Auth::user()->access_level > 1)
 <div style="display: none" id="center_admin">
