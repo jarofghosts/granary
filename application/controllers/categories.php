@@ -198,7 +198,7 @@ class Categories_Controller extends Base_Controller {
             ->order_by('default_order', 'desc')
             ->take(15);
 
-            if ($ignored_users = Auth::user()->ignored_users())
+            if (Auth::check() && $ignored_users = Auth::user()->ignored_users())
             {
                 $query->where_not_in('author_id', $ignored_users);
             }
