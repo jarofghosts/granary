@@ -30,7 +30,11 @@ Route::get('logout', function() {
             Auth::logout();
             return Redirect::to('/');
         });
+Route::get('search/categories', function() {
 
+    return Silo::categories( Input::get('q') );
+
+});
 Route::get('categories/(:num)', 'categories@view');
 Route::get('categories/(:num)/posts', 'posts@category_id');
 
@@ -48,6 +52,7 @@ Route::get('~(:any)', 'users@by_handle');
 
 Route::get('!(:any)/new', 'posts@full_path_new');
 Route::post('!(:any)/new', 'posts@full_path_new');
+
 Route::get('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
 Route::get('!(:any)/<(:any)/>(:any)/delete', 'replies@full_path_delete');
 Route::post('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
