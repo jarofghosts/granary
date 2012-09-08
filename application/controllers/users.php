@@ -71,7 +71,7 @@ class Users_Controller extends Base_Controller {
             $preference = new Preference();
             $preference_defaults = array(
                 'id' => $new_user->id,
-                'front_page_posts' => 15,
+                'front_page_posts' => 9,
                 'bot_messages' => 1
             );
             $preference->fill($preference_defaults);
@@ -143,7 +143,9 @@ class Users_Controller extends Base_Controller {
             'password' => Input::get('password')
         );
 
-        if (strlen($credentials['username']) > 1 && strlen($credentials['password']) > 0 && !(User::where('username', '=', $credentials['username'])->get())) {
+        if (strlen($credentials['username']) > 1 &&
+             strlen($credentials['password']) > 0 &&
+              !(User::where('username', '=', $credentials['username'])->get())) {
 
             Session::put('temp_password', Hash::make(Input::get('password')));
             return View::make('users.new_prompt')->with('username', Input::get('username'));
@@ -152,9 +154,11 @@ class Users_Controller extends Base_Controller {
         if (Auth::attempt($credentials)) {
 
             if (Session::has('pre_login')) {
+                
                 $pre_login = Session::get('pre_login');
                 Session::forget('pre_login');
                 return Redirect::to($pre_login);
+
             } else {
 
                 return Redirect::to('/');
@@ -185,7 +189,7 @@ class Users_Controller extends Base_Controller {
                 $preference = new Preference();
                 $preference_defaults = array(
                     'id' => $new_user->id,
-                    'front_page_posts' => 15,
+                    'front_page_posts' => 9,
                     'bot_messages' => 1
                 );
                 $preference->fill($preference_defaults);

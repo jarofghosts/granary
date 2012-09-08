@@ -143,20 +143,23 @@ class User extends Eloquent {
 
     public function get_enrolled_categories()
     {
+        
         $user_rules = DB::table('user_category')
         ->where('user_id', '=', $this->get_attribute('id'))
         ->get(array('user_category.category_id'));
 
-        $group_rules = DB::table('group_category')
+/*        $group_rules = DB::table('group_category')
         ->join('group_user', 'user_id', '=', $this->get_attribute('id'))
         ->where('group_category.group_id', '=', 'group_user.group_id')
-        -get(array('group_category.category_id'));
+        ->get(array('group_category.category_id'));
 
-        return array_merge($user_rules, $group_rules);
+        return array_merge($user_rules, $group_rules); */
+
+        return $user_rules;
 
     }
 
-    public function post_list( $take = 15, $skip = 0 )
+    public function post_list( $take = 9, $skip = 0 )
     {
 
         $excluded_categories = $this->excluded_categories();

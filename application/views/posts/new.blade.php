@@ -32,7 +32,10 @@ $(document).ready( function() {
     $('#category_id').flexbox('{{ URL::base() }}/search/categories',
         {
             watermark: 'Category',
-            autoCompleteFirstMatch: true
+            autoCompleteFirstMatch: true,
+            paging: {
+                pageSize: 20
+            }
 
         });
 });

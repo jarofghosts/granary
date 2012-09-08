@@ -26,4 +26,3 @@
 <a class="button" href="{{ URL::base() }}/categories/edit/{{ $category->id }}">edit</a>
 @endif
 @endif
-</div>
