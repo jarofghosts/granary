@@ -143,7 +143,7 @@ class Users_Controller extends Base_Controller {
             'password' => Input::get('password')
         );
 
-        if (!(User::where('username', '=', Input::get('username'))->get())) {
+        if (strlen($credentials['username']) > 1 && strlen($credentials['password']) > 0 && !(User::where('username', '=', $credentials['username'])->get())) {
 
             Session::put('temp_password', Hash::make(Input::get('password')));
             return View::make('users.new_prompt')->with('username', Input::get('username'));
