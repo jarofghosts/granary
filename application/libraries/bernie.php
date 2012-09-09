@@ -8,6 +8,7 @@ class Bernie {
 
     public static function migrate($uri = null, $save_path = "basement/")
     {
+
         $local_path = "./public/";
 
         $new_file = self::generate_filename($uri);

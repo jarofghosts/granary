@@ -15,10 +15,13 @@
         {{ HTML::style('js/plugins/flexbox/css/jquery.flexbox.css'); }}
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
     </head>
     <body>
         <div id="wrapper">
-            <header><h1 class="title"><a href="{{ URL::base() }}/posts">Granary</a></h1>
+            <header>
+                <h1 class="title"><a href="{{ URL::base() }}/posts">Granary</a></h1>
                 <div id="head_user_box" class="user_box">
                     @if (Auth::check())
                     <div id="user" class="messages">
@@ -64,15 +67,22 @@
                 <div id="main_pane">
                     @yield('main_content')
                 </div>
-
             </div>
             <div id="push"></div>
         </div>
         <footer><div role="container" class="footer"><h6>Most of this crap is &copy; 2012 <a href="/sailor/~jarofghosts">jarofghosts</a></h6>@yield('footer')</div></footer>
-    </body>
-</html>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 <script defer src="{{ URL::base() }}/js/plugins/flexbox/js/jquery.flexbox.min.js"></script>
 <script defer src="{{ URL::base() }}/js/sailaway.js"></script>
+@if (!Auth::check())
+<script>
+    $(document).ready( function() {
+        $("input[name=username]").focus();
+    });
+
+</script>
+@endif
 @yield('post_includes')
+    </body>
+</html>

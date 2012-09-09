@@ -48,6 +48,17 @@ class Users_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
+            if (Input::get('avatar_upload', FALSE) !== FALSE) {
+
+                $new_name = Bernie::generate_Filename(Input::get('avatar_upload'));
+                Input::upload('avatar_upload', './public/attic/users', $new_name);
+
+                $input['avatar'] = 'attic/users/' . $new_name;
+
+                Bernie::format($input['avatar']);
+
+            }
+
             if (Input::get('avatar', FALSE) !== FALSE) {
 
                 $avatar_bernie = new Bernie;

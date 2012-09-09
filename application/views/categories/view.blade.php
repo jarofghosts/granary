@@ -10,19 +10,17 @@
     <hr noshade/>
     Clearance Required: {{ $category->clearance_required() }}<br/>
     Created: {{ date('m/d/Y', strtotime($category->created_at)) }}
-    @if (Auth::check() && Auth::user()->id != $category->creator->id)
+    @if (Auth::check())
     <hr noshade/>
-    @if (Auth::user()->ignores($user->id))
+    @if (Auth::user()->excludes($category->id))
     <a class="button" href="{{ URL::base() }}/ignores/de/{{ $category->id }}">un-ignore</a>
     @else
     <a class="button" href="{{ URL::base() }}/ignores/exclude/{{ $category->id }}">ignore</a>
+    @endif
+    @if (Auth::user()->can_edit($category->id))
+    <a class="button" href="{{ URL::base() }}/categories/edit/{{ $category->id }}">edit</a>
     @endif
     @endif
 </div>
 <div style="clear: both;"></div>
 <blockquote class="profile_block">{{ Sparkdown\Markdown ($category->description) }}</blockquote><br/>
-@if (Auth::check())
-@if (Auth::user()->can_edit($category->id))
-<a class="button" href="{{ URL::base() }}/categories/edit/{{ $category->id }}">edit</a>
-@endif
-@endif

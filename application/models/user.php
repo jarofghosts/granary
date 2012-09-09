@@ -250,16 +250,26 @@ class User extends Eloquent {
     public function ignored() {
 
         $ignored_users = $this->ignored_users();
-        return User::where_in('id', $ignored_users)
-        ->get();
+
+        if (count($ignored_users) > 0){
+            return User::where_in('id', $ignored_users)
+            ->get();    
+        }
+
+        return false;
 
     }
 
     public function excluded() {
 
         $excluded_categories = $this->excluded_categories();
-        return Category::where_in('id', $excluded_categories)
-        ->get();
+        
+        if (count($excluded_categories) > 0) {
+            return Category::where_in('id', $excluded_categories)
+            ->get();
+        }
+
+        return false;
 
     }
 
