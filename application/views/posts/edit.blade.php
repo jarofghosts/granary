@@ -29,6 +29,6 @@ your
     </select><br/>
     <input type="text" name="title" placeholder="Title" value="{{ $post->title }}"/><br/>
     <textarea name="body" placeholder="Body" class="post_body_input" style="background-color: {{ $post->user->color }}">{{ $post->body_source }}</textarea><br/>
-    <button type="submit">Submit</button>
+    <button type="submit">save</button>
 </form>
 @endsection

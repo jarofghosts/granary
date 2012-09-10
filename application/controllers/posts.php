@@ -176,5 +176,17 @@ class Posts_Controller extends Base_Controller {
     {
         return $this->post_new();
     }
+    public function get_full_path_edit( $category_handle, $post_slug )
+    {
+        return $this->get_edit(Post::full_path( $category_handle, $post_slug ));
+    }
+    public function post_full_path_edit( $category_handle, $post_slug )
+    {
+        return $this->post_edit();
+    }
+    public function get_full_path_delete( $category_handle, $post_slug )
+    {
+        return $this->get_delete( Post::full_path( $category_handle, $post_slug ));
+    }
 
 }

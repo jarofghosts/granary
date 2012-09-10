@@ -25,6 +25,31 @@ class Users_Controller extends Base_Controller {
 
     }
 
+    public function action_change_avatar($type)
+    {
+
+            if ($type == 'upload' && Input::get('avatar_upload', FALSE) !== FALSE) {
+
+                $new_name = Bernie::generate_Filename(Input::get('avatar_upload'));
+                Input::upload('avatar_upload', './public/attic/users', $new_name);
+
+                $new_avatar = 'attic/users/' . $new_name;
+
+            } else if ($type == 'remote' Input::get('avatar', FALSE) !== FALSE) {
+
+                $new_avatar = Bernie::migrate(Input::get('avatar'), "attic/users/");
+
+            } else {
+
+                return false;
+
+            }
+
+            Bernie::format($new_avatar);
+            return $new_avatar;
+
+    }
+
     public function action_post_register()
     {
 
@@ -48,28 +73,9 @@ class Users_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
-            if (Input::get('avatar_upload', FALSE) !== FALSE) {
+            $input['avatar'] = $this->action_upload_avatar();
 
-                $new_name = Bernie::generate_Filename(Input::get('avatar_upload'));
-                Input::upload('avatar_upload', './public/attic/users', $new_name);
-
-                $input['avatar'] = 'attic/users/' . $new_name;
-
-                Bernie::format($input['avatar']);
-
-            }
-
-            if (Input::get('avatar', FALSE) !== FALSE) {
-
-                $avatar_bernie = new Bernie;
-                $new_avatar = $avatar_bernie->migrate(Input::get('avatar'), "attic/users/");
-
-                $input['avatar'] = $new_avatar;
-
-                Bernie::format($new_avatar);
-
-            }
-
+            if (!$input['avatar']) { unset $input['avatar']; }
 
             $user_data = array_merge($input, array(
                 'active' => 1
@@ -106,10 +112,6 @@ class Users_Controller extends Base_Controller {
             'about_me' => Input::get('about_me'),
         );
 
-        if (Input::get('avatar', FALSE) !== FALSE) {
-            $user_data['avatar'] = Input::get('avatar');
-        }
-
         $rules = array(
             'real_name' => 'max:128',
             'email' => 'email|min:7|max:128',
@@ -124,17 +126,9 @@ class Users_Controller extends Base_Controller {
                             ->with('error_message', 'Form validation errors');
         } else {
 
-            if (isset($user_data['avatar'])) {
+            $user_data['avatar'] = $this->action_upload_avatar();
 
-                $avatar_bernie = new Bernie;
-
-                $new_avatar = $avatar_bernie->migrate(Input::get('avatar'), "attic/users/");
-
-                $user_data['avatar'] = $new_avatar;
-
-                Bernie::format($new_avatar);
-
-            }
+            if (!$user_data['avatar']) { unset $user_data['avatar']; }
 
             $user = User::find($user_id);
             $user->fill($user_data);
@@ -142,6 +136,7 @@ class Users_Controller extends Base_Controller {
             $user->save();
 
             return Redirect::to('users/' . $user_id);
+
         }
 
     }
@@ -225,21 +220,12 @@ class Users_Controller extends Base_Controller {
 
         return View::make('users.center')
         ->with('preferences', Preference::find(Auth::user()->id));
+
     }
 
     public function action_save_profile()
     {
         
-    }
-
-    public function action_save_content()
-    {
-
-    }
-
-    public function action_save_exclusions()
-    {
-
     }
 
     public function action_save_preferences()

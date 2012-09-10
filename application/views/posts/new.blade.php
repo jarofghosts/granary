@@ -22,7 +22,7 @@ if ($category_id) {
     <div style="clear: both"></div>
     <input type="text" name="title" placeholder="Title"/><br/>
     <textarea name="body" placeholder="Body" class="post_body_input" style="background-color: {{ Auth::user()->color }};"></textarea><br/>
-    <button type="submit">Submit</button>
+    <button type="publish">Submit</button>
 </form>
 @endsection
 

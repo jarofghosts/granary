@@ -57,6 +57,9 @@ Route::get('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
 Route::get('!(:any)/<(:any)/>(:any)/delete', 'replies@full_path_delete');
 Route::post('!(:any)/<(:any)/>(:any)/edit', 'replies@full_path_edit');
 Route::get('!(:any)/<(:any)/>(:any)', 'replies@full_path');
+Route::get('!(:any)/<(:any)/edit', 'posts@full_path_edit');
+Route::post('!(:any)/<(:any)/edit', 'posts@full_path_edit');
+Route::get('!(:any)/<(:any)/delete', 'posts@full_path_delete');
 Route::get('!(:any)/<(:any)', 'posts@full_path');
 Route::get('!(:any)', 'categories@posts_by_handle');
 
