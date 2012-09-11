@@ -67,7 +67,8 @@ class Bernie {
 
     public static function format($filename)
     {
-
+        self::load($filename);
+        
         if (self::getHeight() > self::getWidth() && self::getHeight() > 320) {
 
             self::resizeToHeight(320);

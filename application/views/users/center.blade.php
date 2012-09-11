@@ -18,6 +18,7 @@
 @endsection
 
 @section('post_includes')
+<script src="{{ URL::base() }}/js/plugins/jquery.form.js"></script>
 <script src="{{ URL::base() }}/js/plugins/colorpick/jquery.miniColors.min.js"></script>
 <script src="{{ URL::base() }}/js/user_center.js"></script>
 <script>

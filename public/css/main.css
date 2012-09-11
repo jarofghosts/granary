@@ -11,7 +11,7 @@ body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #F0F0F0;
     color: #555;
-    background-image: url('/sailor/img/tiny_grid.png');
+    background-image: url('/img/tiny_grid.png');
 }
 
 .reply .button {

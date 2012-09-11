@@ -25,28 +25,33 @@ class Users_Controller extends Base_Controller {
 
     }
 
-    public function action_change_avatar($type)
+    public function action_change_avatar()
     {
+            if ( Input::file('avatar-upload', FALSE )) {
 
-            if ($type == 'upload' && Input::get('avatar_upload', FALSE) !== FALSE) {
+                $new_name = Bernie::generate_filename(Input::get('avatar-upload'));
 
-                $new_name = Bernie::generate_Filename(Input::get('avatar_upload'));
-                Input::upload('avatar_upload', './public/attic/users', $new_name);
-
+                Input::upload('avatar-upload', './public/attic/users', $new_name);
+                
                 $new_avatar = 'attic/users/' . $new_name;
 
-            } else if ($type == 'remote' Input::get('avatar', FALSE) !== FALSE) {
+            } else if (Input::get('avatar', FALSE) !== FALSE) {
 
                 $new_avatar = Bernie::migrate(Input::get('avatar'), "attic/users/");
 
             } else {
 
-                return false;
+                return Response::json(array('success' => false));
 
             }
 
             Bernie::format($new_avatar);
-            return $new_avatar;
+            $response = array(
+                'img_src' => $new_avatar,
+                'success' => true
+            );
+
+            return Response::json($response);
 
     }
 
@@ -75,7 +80,7 @@ class Users_Controller extends Base_Controller {
 
             $input['avatar'] = $this->action_upload_avatar();
 
-            if (!$input['avatar']) { unset $input['avatar']; }
+            if (!$input['avatar']) { unset($input['avatar']); }
 
             $user_data = array_merge($input, array(
                 'active' => 1
@@ -128,7 +133,7 @@ class Users_Controller extends Base_Controller {
 
             $user_data['avatar'] = $this->action_upload_avatar();
 
-            if (!$user_data['avatar']) { unset $user_data['avatar']; }
+            if (!$user_data['avatar']) { unset($user_data['avatar']); }
 
             $user = User::find($user_id);
             $user->fill($user_data);

@@ -46,6 +46,8 @@ Route::controller('messages');
 Route::controller('ignores');
 Route::controller('groups');
 
+Route::post('users/change_avatar', 'users@change_avatar');
+
 Route::get('~/settings', 'users@get_settings');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
 Route::get('~(:any)', 'users@by_handle');

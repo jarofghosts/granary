@@ -70,11 +70,13 @@
             </div>
             <div id="push"></div>
         </div>
-        <footer><div role="container" class="footer"><h6>Most of this crap is &copy; 2012 <a href="/sailor/~jarofghosts">jarofghosts</a></h6>@yield('footer')</div></footer>
+        <footer><div role="container" class="footer"><h6>Most of this crap is &copy; 2012 <a href="/~jarofghosts">jarofghosts</a></h6>@yield('footer')</div></footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script src="{{ URL::base() }}/js/plugins/mousetrap.min.js"></script>
 <script defer src="{{ URL::base() }}/js/plugins/flexbox/js/jquery.flexbox.min.js"></script>
 <script defer src="{{ URL::base() }}/js/sailaway.js"></script>
+<script defer src="{{ URL::base() }}/js/keystrokes.js"></script>
 @if (!Auth::check())
 <script>
     $(document).ready( function() {

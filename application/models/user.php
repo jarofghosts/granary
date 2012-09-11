@@ -81,6 +81,11 @@ class User extends Eloquent {
 
     }
 
+    public function get_edit_avatar()
+    {
+        return $this->get_attribute('avatar');
+    }
+
     public function set_password($password)
     {
 

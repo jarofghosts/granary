@@ -33,6 +33,7 @@ class Silo {
 
 		if (!$results)
 		{
+
 			$query = self::search($search_term, 'categories',
 				array(
 					'handle', 'title'
