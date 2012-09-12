@@ -223,6 +223,24 @@ a.button:active {
     color: #555;
     box-shadow: 1px 1px 2px #555;
 }
+button {
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: #333;
+    padding: 3px;
+    border: none;
+    color: #ccc;
+}
+button:hover {
+    cursor: pointer;
+    text-shadow: none;
+    box-shadow: 1px 1px 2px #ccc;
+}
+button:active {
+    background-color: #ccc;
+    color: #555;
+    box-shadow: 1px 1px 2px #555;
+}
 input {
     outline: none;
     font-size: 16px;

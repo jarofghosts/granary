@@ -99,12 +99,10 @@ ul.center_options li.current {
 
 div.center_action {
 	float: right;
-	width: 68%;
+	width: 65%;
 	min-height: 400px;
-	border-right: 1px solid #333;
-	border-top: 1px solid #333;
-	border-bottom: 3px solid #333;
-	border-radius: 3px;
+    border-right: 3px solid;
+    margin-right: 5px;
 	padding: 5px;
 }
 
