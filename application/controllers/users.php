@@ -33,7 +33,7 @@ class Users_Controller extends Base_Controller {
 
                 Input::upload('avatar-upload', './public/attic/users', $new_name);
                 
-                $new_avatar = 'attic/users/' . $new_name;
+                $new_avatar = '/attic/users/' . $new_name;
 
             } else if (Input::get('avatar', FALSE) !== FALSE) {
 
@@ -230,7 +230,40 @@ class Users_Controller extends Base_Controller {
 
     public function action_save_profile()
     {
-        
+
+        $user_id = Input::get('id');
+
+        $user_data = array(
+            'real_name' => Input::get('real_name'),
+            'email' => Input::get('email'),
+            'color' => Input::get('color'),
+            'about_me' => Input::get('about_me'),
+            'avatar' => Input::get('avatar')
+        );
+
+        $rules = array(
+            'real_name' => 'max:128',
+            'email' => 'email|min:7|max:128',
+            'color' => 'max:32'
+        );
+
+        $validation = Validator::make($user_data, $rules);
+
+        if ($validation->fails()) {
+            return View::make('common.error')->with('errors', $validation->errors)
+                            ->with('error_message', 'Form validation errors');
+        } else {
+
+            $user = User::find($user_id);
+
+            $user->fill($user_data);
+
+            $user->save();
+
+            echo 'success';
+            return;
+
+        }
     }
 
     public function action_save_preferences()

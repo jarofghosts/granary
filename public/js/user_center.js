@@ -1,12 +1,27 @@
 $(document).ready( function() {
 
+	$("#user_profile_edit").ajaxForm({
+		success: function(res) {
+			if (res !== 'success') {
+				alert('There was an error saving your profile.');
+			}
+		}
+	});
+	$("#board_prefs_edit").ajaxForm({
+		success: function(res) {
+			if (res !== 'success') {
+				alert('There was an error saving your profile.');
+			}
+		}
+	});
+
 	$("#avatar-form").ajaxForm({
 		dataType: 'json',
 		success: function( res ) {
 
 			if ( res.success ){
 
-				$(".mini_avatar").attr('src', '/' + res.img_src );
+				$(".mini_avatar").attr('src', res.img_src );
 				$("#user_profile_edit input[name=avatar]").val(res.img_src);
 				$(".avatar-toggle").trigger('click');
 
