@@ -268,7 +268,9 @@ class Users_Controller extends Base_Controller {
 
     public function action_save_preferences()
     {
-        
+        $preferences = array(
+
+        );
     }
 
     public function action_by_handle($user_handle = null)
