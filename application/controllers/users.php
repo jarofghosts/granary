@@ -269,8 +269,31 @@ class Users_Controller extends Base_Controller {
     public function action_save_preferences()
     {
         $preferences = array(
-
+            'front_page_posts' => Input::get('front_page_posts',9),
+            'rating_threshold' => Input::get('rating_threshold',0),
+            'responses_per_page' => Input::get('responses_per_page',0),
+            'bot_messages' => Input::get('bot_messages', 0),
         );
+        $rules = array(
+            'front_page_posts' => 'numeric',
+            'rating_threshold' => 'numeric',
+            'responses_per_page' => numeric
+        );
+
+        $validation = Validator::make($preferences, $rules);
+
+        if ($validation->fails()) {
+            return View::make('common.error')->with('errors', $validation->errors)
+                            ->with('error_message', 'Form validation errors');
+        } else {
+
+            $user_preferences = Preference::find(Auth::user()->id);
+            $user_preferences->fill($preferences);
+            $user_preferences->save();
+
+            echo 'success';
+            return;
+        }
     }
 
     public function action_by_handle($user_handle = null)

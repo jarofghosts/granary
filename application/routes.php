@@ -3,19 +3,23 @@
 Route::get('/', function() {
             return View::make('common.index');
         });
-Route::get('posts/(:num)/reply/new', 'replies@new');
-Route::post('reply/new', 'replies@new');
+
+// >>>>>>>>>>>>>>>>>> CRUD routes
+// for the most part the controllers are restful, but for some reason these need special declarations.
+// a lot of these will probably go the way of the buffalo when I get down to brass tacks.
+
+
 Route::delete('posts/(:num)', 'posts@remove');
-Route::get('users/(:num)', 'users@index');
 Route::get('posts/(:num)', 'posts@view');
+
+Route::post('reply/new', 'replies@new');
+Route::get('posts/(:num)/reply/new', 'replies@new');
+
+Route::get('users/(:num)', 'users@index');
 Route::get('users/new', function() {
             return View::make('users.register');
         });
 Route::post('users/new', 'users@post_register');
-Route::get('login', function() {
-            return View::make('users.login_form');
-        });
-Route::post('login', 'users@post_login');
 Route::get('users/edit/(:num)/avatar', function($id) {
             return View::make('users.edit')->with('user', User::find($id))->with('change_avatar', 1);
         }
@@ -25,18 +29,28 @@ Route::get('users/edit/(:num)', function($id) {
         }
 );
 Route::post('users/edit', 'users@post_edit');
+
+
+Route::get('categories/(:num)', 'categories@view');
+Route::get('categories/(:num)/posts', 'posts@category_id');
+
+
+// >>>>>>>>>>>>>>>>> Authentication
+// ... self-explanatory
+
+Route::get('login', function() {
+            return View::make('users.login_form');
+        });
+Route::post('login', 'users@post_login');
+
 Route::get('logout', function() {
             Auth::user()->activity->delete();
             Auth::logout();
             return Redirect::to('/');
         });
-Route::get('search/categories', function() {
 
-    return Silo::categories( Input::get('q') );
-
-});
-Route::get('categories/(:num)', 'categories@view');
-Route::get('categories/(:num)/posts', 'posts@category_id');
+// >>>>>>>>>>>>>>>>> Generic
+// ... generic loads of controllers
 
 Route::controller('users');
 Route::controller('posts');
@@ -46,7 +60,24 @@ Route::controller('messages');
 Route::controller('ignores');
 Route::controller('groups');
 
+// >>>>>>>>>>>>>>>>> Search
+// ... interfaces to SILO
+
+Route::get('search/categories', function() {
+
+    return Silo::categories( Input::get('q') );
+
+});
+
+// >>>>>>>>>>>>>>>>> Mostly AJAXy stuff
+// ... all that stuff that gets called via ajax
+
 Route::post('users/change_avatar', 'users@change_avatar');
+Route::post('users/save_preferences', 'users@save_preferences');
+
+
+// >>>>>>>>>>>>>>>>> File system
+// ... our uber kawaii url structure
 
 Route::get('~/settings', 'users@get_settings');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
