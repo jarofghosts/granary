@@ -10,4 +10,4 @@
 </blockquote>
 <br/>
 
-<a class="button" href="{{ URL::base() }}/message/send/{{ $message->sender->id }}/{{ $message->id }}">reply</a>
+<a class="button" href="{{ URL::base() }}/messages/send/{{ $message->sender->id }}/{{ $message->id }}">reply</a>

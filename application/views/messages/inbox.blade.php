@@ -9,7 +9,7 @@
 <?php $unread_count = count($unread); ?>
 <h1 class="subtitle">Unread Messages ({{ $unread_count }})</h1>
 <ul class="unread_mail">
-	@if ($inbox_count < 1)
+	@if ($unread_count < 1)
 		<em>{{ Diceman::nothing() }}</em>
 	@else
     @foreach ($unread as $unread_message)
@@ -19,7 +19,7 @@
 </ul>
 <h1 class="subtitle">Read Messages ({{ $read_count }})</h1>
 <ul class="read_mail">
-	@if ($inbox_count < 1)
+	@if ($read_count < 1)
 		<em>{{ Diceman::nothing() }}</em>
 	@else
     @foreach ($read as $read_message)

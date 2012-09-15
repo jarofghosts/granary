@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class Messages_Controller extends Base_Controller {
 
     public $restful = true;
@@ -107,6 +102,7 @@ class Messages_Controller extends Base_Controller {
             'subject' => Input::get('subject'),
             'recipient_id' => Input::get('recipient_id'),
             'body' => Input::get('body'),
+            'parent_id' => Input::get('parent_id', 0),
             'message_type' => 0,
             'read' => false
             );
