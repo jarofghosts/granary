@@ -197,7 +197,7 @@ class User extends Eloquent {
     {
 
         $username = $this->get_attribute('username');
-        $user_id = $this->get_attribute('user_id');
+        $user_id = $this->get_attribute('id');
 
         $ignored_users = Cache::get($username . '&jerk_ignores');
 
@@ -228,7 +228,7 @@ class User extends Eloquent {
     {
 
         $username = $this->get_attribute('username');
-        $user_id = $this->get_attribute('user_id');
+        $user_id = $this->get_attribute('id');
 
         $excluded_categories = Cache::get($username . '&cat_excludes');
 
