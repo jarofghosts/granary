@@ -59,6 +59,17 @@
                     </ul>
                 </div>
                 @endif
+                <div id="float_content_box" class="fixed-left">
+                    <div id="new-post" class="messages">
+                        <i class="icon-edit"></i><a href="{{ URL::base() }}/posts/new">new post</a>
+                    </div>
+                    <div id="new-category" class="messages">
+                        <i class="icon-tag"></i><a href="{{ URL::base() }}/categories/new">new category</a>
+                    </div>
+                    <div id="new-group" class="messages">
+                        <i class="icon-group"></i><a href="{{ URL::base() }}/groups/new">new group</a>
+                    </div>
+                </div>
             </header>
             <div id="main" role="main">
                 <div class="header">

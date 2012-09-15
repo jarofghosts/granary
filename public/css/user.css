@@ -23,8 +23,13 @@
 	text-shadow: 2px 2px 2px #ccc;
 }
 
-.messages i {
+.user_box .messages i {
     float: left;
+    font-size: 15px;
+    color: #ddd;
+}
+.fixed-left .messages i {
+    float: right;
     font-size: 15px;
     color: #ddd;
 }
@@ -36,6 +41,10 @@
 }
 #board_prefs_edit input[type=text] {
     width: 50px;
+}
+
+#float_content_box {
+    opacity: 0;
 }
 
 ul.unread_mail, ul.read_mail {
