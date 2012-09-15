@@ -37,20 +37,22 @@ $(document).ready( function() {
 	});
 
 	$("li a").bind( 'click', function() {
-
 		new_tab = $(this).attr('href');
 
 		if (!$(new_tab).hasClass('tab_current')) 
 		{
 
-			$(".tab_current").css('position', 'absolute').
-				fadeOut();
-			$(".tab_current").removeClass('tab_current');
-
-			$(new_tab).show('slide', { direction: 'left' }, function() {
-				$(new_tab).css('position', 'relative');
+			$(".tab_current").css('position', 'absolute').animate({
+				'margin-top' : '50px',
+				'opacity' : '0'
+			}, function() {
+				$(".tab_current").hide().removeClass('tab_current')
+				.css('margin-top', 0);
+				$(new_tab).addClass('tab_current');
+			})
+			$(new_tab).css('width', '100%').show().animate({
+				'opacity' : '1'
 			});
-			$(new_tab).addClass('tab_current');
 
 			$(".current").removeClass('current');
 			$(this).parent().addClass('current');

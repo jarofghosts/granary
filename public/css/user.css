@@ -75,17 +75,19 @@ ul.read_mail li {
 }
 
 ul.center_options {
-	float: left;
-	width: 25%;
+    line-height: 0px;
 }
 
 ul.center_options li {
 	list-style: none;
 	display: inline-block;
 	padding: 2px;
+    min-width: 50px;
+    height: 13px;
+    border-bottom: 3px solid clear;
 }
 ul.center_options li:hover {
-	border-left: 3px solid #888;
+	border-bottom: 3px solid #888;
 }
 
 ul.center_options li a {
@@ -94,16 +96,12 @@ ul.center_options li a {
 }
 
 ul.center_options li.current {
-	border-left: 3px solid #333;
+	border-bottom: 3px solid #333;
 }
 
 div.center_action {
-	float: right;
-	width: 65%;
-	min-height: 400px;
-    border-right: 3px solid;
-    margin-right: 5px;
 	padding: 5px;
+    position: relative;
 }
 
 .mini_avatar {
@@ -135,4 +133,8 @@ div.center_action {
     display: inline-block;
     margin-left: 5px;
     margin-bottom: -2px;
+}
+.tab_current {
+    position: relative;
+    width: 100%;
 }
