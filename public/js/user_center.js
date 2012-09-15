@@ -42,15 +42,15 @@ $(document).ready( function() {
 		if (!$(new_tab).hasClass('tab_current')) 
 		{
 
-			$(".tab_current").css('position', 'absolute').animate({
+			$(".tab_current").removeClass('tab_current').stop(false, true)
+			.css('width', '100%').css('position', 'absolute').animate({
 				'margin-top' : '50px',
 				'opacity' : '0'
 			}, function() {
-				$(".tab_current").hide().removeClass('tab_current')
+				$(this).hide().removeClass('tab_current')
 				.css('margin-top', 0);
-				$(new_tab).addClass('tab_current');
 			})
-			$(new_tab).css('width', '100%').show().animate({
+			$(new_tab).addClass('tab_current').stop(false, true).css('width', '100%').show().animate({
 				'opacity' : '1'
 			});
 

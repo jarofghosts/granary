@@ -45,6 +45,7 @@
 
 #float_content_box {
     opacity: 0;
+    display: none;
 }
 
 ul.unread_mail, ul.read_mail {
