@@ -77,7 +77,7 @@ class Silo {
 
 			foreach ($query as $query_result)
 			{
-				
+
 				$user = User::find($query_result->id);
 
 				$response = new stdClass;

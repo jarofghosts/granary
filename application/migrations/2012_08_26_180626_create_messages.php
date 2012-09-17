@@ -2,11 +2,6 @@
 
 class Create_Messages {
 
-	/**
-	 * Make changes to the database.
-	 *
-	 * @return void
-	 */
 	public function up()
 	{
 		Schema::create('messages', function($table) {
@@ -25,11 +20,6 @@ class Create_Messages {
                 });
 	}
 
-	/**
-	 * Revert the changes to the database.
-	 *
-	 * @return void
-	 */
 	public function down()
 	{
 		Schema::drop('messages');
