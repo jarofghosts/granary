@@ -13,8 +13,6 @@ class Bernie {
 
         $new_file = self::generate_filename($uri);
 
-        chmod($local_path . $save_path, '0777');
-
         $file = fopen($uri, "rb");
         if ($file) {
             $newf = fopen($local_path . $save_path . $new_file, "w+");
