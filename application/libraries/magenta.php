@@ -4,10 +4,14 @@ class Magenta {
 	
 	public static function get()
 	{
-		return Cache::remember('smilies', function() { 
+		/* return Cache::remember('smilies', function() { 
 			DB::table('smilies')->where('active', '=', 1)
 			->get();
-			}, 'forever');
+			}, 'forever'); */
+		
+			return DB::table('smilies')->where('active', '=', 1)
+			->get();
+		
 	}
 
 	public static function smilerize( $text )
@@ -17,12 +21,12 @@ class Magenta {
 		foreach ( $rules as $rule )
 		{
 
-			$text = str_replace($rule->trigger, $rule->image, $text);
+			$text = str_replace($rule->trigger, $rule->replacement, $text);
 
 		}
 
 		return $text;
 
 	}
-	
+
 }

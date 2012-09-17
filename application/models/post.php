@@ -32,7 +32,9 @@ class Post extends Eloquent {
     {
 
         $this->set_attribute('body_source', $source);
-        $this->set_attribute('body', Sparkdown\Markdown($source));
+        $source = Sparkdown\Markdown($source);
+        $source = Magenta::smilerize($source);
+        $this->set_attribute('body', $source);
 
     }
 
