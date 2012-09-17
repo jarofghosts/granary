@@ -303,16 +303,17 @@ button:active {
 blockquote {
     color: #333;
     overflow: auto;
-    max-width: 650px;
     display: block;
     border: 1px solid #a0a0a0;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom: 2px solid #333;
     margin-bottom: 50px;
+    margin-left: 0px;
+    margin-right: 0px;
     padding: 20px;
     position: relative;
-    min-height: 80px;
+    min-height: 100px;
 }
 .profile_block {
     margin-left: -5px;

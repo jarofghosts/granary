@@ -63,6 +63,37 @@ class Silo {
 	public static function users( $search_term )
 	{
 
+		$results = Cache::get('usersearch&' . $search_term);
+
+		if (!$results)
+		{
+
+			$query = self::search($search_term, 'users',
+				array(
+					'username'
+				));
+
+			$results = array();
+
+			foreach ($query as $query_result)
+			{
+				
+				$user = User::find($query_result->id);
+
+				$response = new stdClass;
+				$response->name = $user->display_name;
+				$response->id = $query_result->id;
+
+				array_push($results, $response);
+
+			}
+
+			Cache::put('usersearch&' . $search_term, $results, 5);
+
+		}
+			
+		return Response::json(array('results' => $results));
+
 	}
 
 	public static function groups( $search_term )

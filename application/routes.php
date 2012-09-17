@@ -69,6 +69,12 @@ Route::get('search/categories', function() {
 
 });
 
+Route::get('search/users', function() {
+
+    return Silo::users( Input::get('q') );
+
+});
+
 // >>>>>>>>>>>>>>>>> Mostly AJAXy stuff
 // ... all that stuff that gets called via ajax
 
