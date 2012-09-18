@@ -4,14 +4,13 @@ class Magenta {
 	
 	public static function get()
 	{
-		/* return Cache::remember('smilies', function() { 
-			DB::table('smilies')->where('active', '=', 1)
-			->get();
-			}, 'forever'); */
-		
+
+		Cache::forget('smilies');
+		return Cache::remember('smilies', function() { 
 			return DB::table('smilies')->where('active', '=', 1)
 			->get();
-		
+			}, 'forever');
+
 	}
 
 	public static function smilerize( $text )

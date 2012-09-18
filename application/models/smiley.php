@@ -14,4 +14,14 @@ class Smiley extends Eloquent {
 	{
 		Cache::forget('smilies');
 	}
+
+	public function set_active( $active )
+	{
+		Cache::forget('smilies');
+	}
+
+	public function set_replacement( $replacement )
+	{
+		Cache::forget('smilies');
+	}
 }
