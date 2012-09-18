@@ -39,6 +39,8 @@ $(document).ready( function() {
 	$("li a").bind( 'click', function() {
 		new_tab = $(this).attr('href');
 
+		roar('This is a test of my message displaying system! Let\'s see how it looks!');
+
 		if (!$(new_tab).hasClass('tab_current')) 
 		{
 

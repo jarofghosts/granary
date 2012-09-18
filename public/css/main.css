@@ -181,6 +181,34 @@ div#main {
     text-shadow: #555 1px 1px 0;
 }
 
+.roar {
+    background-color: #d5d5d5;
+    width: 275px;
+    min-height: 150px;
+    border-radius: 3px;
+    box-shadow: 2px 5px 5px 5px #ccc;
+    top: 200px;
+    right: 75px;
+    padding: 10px;
+    display: none;
+    position: fixed;
+}
+.roar-icon {
+    display: block;
+    float: right;
+}
+.roar-icon i {
+    color: #333;
+    font-size: 2.2em;
+}
+.roar span {
+    display: inline-block;
+    margin-left: 10px;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 h6 a {
 
     color: #ccc;

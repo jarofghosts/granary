@@ -88,6 +88,7 @@
 <script defer src="{{ URL::base() }}/js/plugins/flexbox/js/jquery.flexbox.min.js"></script>
 <script defer src="{{ URL::base() }}/js/sailaway.js"></script>
 <script defer src="{{ URL::base() }}/js/keystrokes.js"></script>
+<script defer src="{{ URL::base() }}/js/roar.js"></script>
 @if (!Auth::check())
 <script>
     $(document).ready( function() {
