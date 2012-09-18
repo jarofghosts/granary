@@ -18,7 +18,7 @@ function roar( message )
 		'right' : '75px',
 		'opacity' : '0'
 		}, function() {
-			//$("." + random_offset).remove();
+			$("." + random_offset).remove();
 		});
 	}, 5000);
 

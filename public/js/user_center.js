@@ -3,14 +3,18 @@ $(document).ready( function() {
 	$("#user_profile_edit").ajaxForm({
 		success: function(res) {
 			if (res !== 'success') {
-				alert('There was an error saving your profile.');
+				roar('There was an error saving your profile.');
+			} else {
+				roar('Profile saved!');
 			}
 		}
 	});
 	$("#board_prefs_edit").ajaxForm({
 		success: function(res) {
 			if (res !== 'success') {
-				alert('There was an error saving your profile.');
+				roar('There was an error saving your preferences.');
+			} else {
+				roar('Preferences saved!');
 			}
 		}
 	});
@@ -27,19 +31,17 @@ $(document).ready( function() {
 
 			} else {
 
-				window.alert('There was an error changing your avatar.');
+				roar('There was an error changing your avatar.');
 
 			}
 		},
 		error: function ( error ) {
-			window.alert(error);
+			roar(error);
 		}
 	});
 
 	$("li a").bind( 'click', function() {
 		new_tab = $(this).attr('href');
-
-		roar('This is a test of my message displaying system! Let\'s see how it looks!');
 
 		if (!$(new_tab).hasClass('tab_current')) 
 		{
