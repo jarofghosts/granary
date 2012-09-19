@@ -16,6 +16,10 @@
         
     </blockquote>
     <div class="reply_count">
+        @if (Auth::check())
+        <a class="vote-button selected-vote button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/up">+</a>
+        <a class="vote-button button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/down">-</a>
+        @endif
         <a class="button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">replies: {{ count($post->replies) }}</a>
     </div>
     <div class="post_admin" role="administration">

@@ -15,11 +15,10 @@ class Create_Posts {
                     $table->integer('category_id')->index();
                     $table->string('title', 128);
                     $table->text('body');
+                    $table->text('body_source');
                     $table->boolean('active')->default(1);
                     $table->timestamp('default_order');
                     $table->string('slug', 64);
-                    $table->integer('up_votes');
-                    $table->integer('down_votes');
                     $table->integer('score');
                     $table->timestamps();
                 });

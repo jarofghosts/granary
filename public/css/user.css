@@ -147,3 +147,12 @@ div.center_action {
 .tab_current {
     width: 100%;
 }
+.vote-button {
+    display: inline-block;
+    opacity: .4;
+    width: 15px;
+    text-align: center;
+}
+.selected-vote {
+    opacity: 1;
+}
