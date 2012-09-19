@@ -163,6 +163,22 @@ class Posts_Controller extends Base_Controller {
         return View::make('common.error')->with('error_message', 'No post ID specified');
 
     }
+    public function post_up( $post_id )
+    {
+        $current_vote = Auth::user()->check_vote();
+        if ($current_vote < 1) {
+            Post::find($post_id)->vote_up();
+            Auth::user()->cast_vote($post_id, 1);
+        }
+    }
+    public function post_down( $post_id )
+    {
+        $current_vote = Auth::user()->check_vote();
+        if ($current_vote >= 0) {
+            Post::find($post_id)->vote_down(Auth::user()->id);
+            Auth::user()->cast_vote($post_id, -1);
+        }
+    }
 
     public function get_full_path( $category_handle = null, $post_slug = null )
     {

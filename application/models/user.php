@@ -80,6 +80,27 @@ class User extends Eloquent {
         }
 
     }
+    public function check_vote($post_id)
+    {
+        return Cache::remember($this->get_attribute('username') . '&' . $post_id . '&vote', function($post_id) {
+            $result = DB::table('votes')->where('caster_id', '=', $this->get_attribute('username'))
+            ->where('post_id', '=', $post_id)->take(1)->only('votes.good');
+            if (!$result) { return 0; } else {
+                return $result;
+            }
+        }, 'forever');
+    }
+    public function cast_vote($post_id, $vote)
+    {
+        $insert_data = array(
+                'caster_id' => $this->get_attribute('id'),
+                'post_id' => $post_id,
+                'good' => $vote
+            );
+        DB::table('votes')->insert($insert_data);
+        Cache::set($this->get_attribute('username') . '&' . $post_id . '&vote', $vote, 'forever');
+        return $vote;
+    }
 
     public function get_edit_avatar()
     {

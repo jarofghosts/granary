@@ -58,7 +58,7 @@ class Post extends Eloquent {
         return $slug;
 
     }
-
+    // @todo make a generator for this as well.
     public static function full_path( $category_handle, $post_slug )
     {
         $post_id = Cache::remember(md5( $category_handle . $post_slug ),
@@ -75,6 +75,17 @@ class Post extends Eloquent {
 
         return $post_id;
 
+    }
+
+    public function vote_up ()
+    {
+        $this->set_attribute('score', DB::raw('score + 1'));
+        $this->save();
+    }
+    public function vote_down ()
+    {
+        $this->set_attribute('score', DB::raw('score - 1'));
+        $this->save();
     }
 
 }

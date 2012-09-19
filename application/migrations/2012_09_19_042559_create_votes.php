@@ -13,7 +13,7 @@ class Create_Votes {
 			$table->increments('id');
 			$table->integer('caster_id')->index();
 			$table->integer('post_id')->index();
-			$table->boolean('good');
+			$table->integer('good')->default(0);
 			$table->timestamps();
 		});
 
