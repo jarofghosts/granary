@@ -20,7 +20,7 @@ function roar( message )
 		}, function() {
 			$("." + random_offset).remove();
 		});
-	}, 5000);
+	}, 3000);
 
 
 }

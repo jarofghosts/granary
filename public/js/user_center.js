@@ -53,10 +53,10 @@ $(document).ready( function() {
 			}, function() {
 				$(this).hide().removeClass('tab_current')
 				.css('margin-top', 0);
-			})
+			});
 			$(new_tab).addClass('tab_current').stop(false, true).css('width', '100%').show().animate({
 				'opacity' : '1'
-			});
+			}).css('position', 'relative');
 
 			$(".current").removeClass('current');
 			$(this).parent().addClass('current');
