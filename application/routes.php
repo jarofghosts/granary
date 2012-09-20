@@ -15,6 +15,8 @@ Route::get('posts/(:num)', 'posts@view');
 Route::post('reply/new', 'replies@new');
 Route::get('posts/(:num)/reply/new', 'replies@new');
 
+Route::get('users', 'users@index');
+
 Route::get('users/(:num)', 'users@index');
 Route::get('users/new', function() {
             return View::make('users.register');

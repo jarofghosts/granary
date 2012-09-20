@@ -19,8 +19,8 @@ class Users_Controller extends Base_Controller {
         } else {
             $users = User::all();
 
-
             return View::make('users.list')->with('users', $users);
+            
         }
 
     }

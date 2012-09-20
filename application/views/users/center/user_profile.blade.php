@@ -16,9 +16,11 @@
     <hr noshade/>
     Experience: {{ $user->experience }}<br/>
     Registered: {{ date('m/d/Y', strtotime($user->created_at)) }}
-    @if (Auth::check() && Auth::user()->id != $user->id)
+    @if (Auth::check())
     <hr noshade/>
+    @if (Auth::user()->id != $user->id)
     <a class="button" href="{{ URL::base() }}/messages/send/{{ $user->id }}">message</a>
+    @endif
     @if (Auth::user()->ignores($user->id))
     <a class="button" href="{{ URL::base() }}/ignores/un/{{ $user->id }}">un-ignore</a>
     @else

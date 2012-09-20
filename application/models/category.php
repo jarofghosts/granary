@@ -24,9 +24,11 @@ class Category extends Eloquent {
     }
 
     public function mods() {
-        User::join('user_category', 'user_category.user_id', '=', 'users.id')
+
+        return User::join('user_category', 'user_category.user_id', '=', 'users.id')
         ->where('user_category.category_id', '=', $this->get_attribute('id'))
         ->get(array('users.*'));
+        
     }
 
     public function clearance_required()
