@@ -17,8 +17,12 @@
     </blockquote>
     <div class="reply_count">
         @if (Auth::check())
-        <a class="vote-button selected-vote button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/up">+</a>
-        <a class="vote-button button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/down">-</a>
+        <a
+        class="vote-button @if (Auth::user()->check_vote( $post->id ) > 0)selected-vote@endif up button"
+        href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/up">+</a>
+        <a
+        class="vote-button @if (Auth::user()->check_vote( $post->id ) < 0)selected-vote@endif down button"
+        href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}/down">-</a>
         @endif
         <a class="button" href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">replies: {{ count($post->replies) }}</a>
     </div>

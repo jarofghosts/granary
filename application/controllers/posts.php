@@ -48,7 +48,9 @@ class Posts_Controller extends Base_Controller {
             $new_post->default_order = $new_post->created_at;
             $new_post->save();
 
-            $new_post->user->add_experience(2);
+            $this->post_up($new_post->id);
+
+            $new_post->user->add_experience(1);
 
             return View::make('posts.single')->with('post', $new_post);
         }
@@ -165,19 +167,23 @@ class Posts_Controller extends Base_Controller {
     }
     public function post_up( $post_id )
     {
-        $current_vote = Auth::user()->check_vote();
+        $current_vote = Auth::user()->check_vote( $post_id );
         if ($current_vote < 1) {
-            Post::find($post_id)->vote_up();
-            Auth::user()->cast_vote($post_id, 1);
+            Post::find( $post_id )->vote_up();
+            Auth::user()->cast_vote( $post_id, 1 );
+            return Response::json( array('success' => true, 'changed' => true ) );
         }
+        return Response::json( array('success' => true ) );
     }
     public function post_down( $post_id )
     {
-        $current_vote = Auth::user()->check_vote();
+        $current_vote = Auth::user()->check_vote( $post_id );
         if ($current_vote >= 0) {
-            Post::find($post_id)->vote_down(Auth::user()->id);
-            Auth::user()->cast_vote($post_id, -1);
+            Post::find( $post_id )->vote_down(Auth::user()->id);
+            Auth::user()->cast_vote( $post_id, -1 );
+            return Response::json( array('success' => true, 'hide_post' => true, 'changed' => true ) );
         }
+        return Response::json( array('success' => true ) );
     }
 
     public function get_full_path( $category_handle = null, $post_slug = null )

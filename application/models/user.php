@@ -82,13 +82,20 @@ class User extends Eloquent {
     }
     public function check_vote($post_id)
     {
-        return Cache::remember($this->get_attribute('username') . '&' . $post_id . '&vote', function($post_id) {
-            $result = DB::table('votes')->where('caster_id', '=', $this->get_attribute('username'))
+
+        $result = Cache::get($this->get_attribute('username') . '&' . $post_id . '&vote', FALSE);
+        
+        if ($result === FALSE)
+        {
+            $result = DB::table('votes')->where('caster_id', '=', $this->get_attribute('id'))
             ->where('post_id', '=', $post_id)->take(1)->only('votes.good');
-            if (!$result) { return 0; } else {
-                return $result;
-            }
-        }, 'forever');
+
+            Cache::put($this->get_attribute('username') . '&' . $post_id . '&vote', $result, 'forever');
+
+        }
+
+        return $result;
+
     }
     public function cast_vote($post_id, $vote)
     {
@@ -98,7 +105,7 @@ class User extends Eloquent {
                 'good' => $vote
             );
         DB::table('votes')->insert($insert_data);
-        Cache::set($this->get_attribute('username') . '&' . $post_id . '&vote', $vote, 'forever');
+        Cache::put($this->get_attribute('username') . '&' . $post_id . '&vote', $vote, 'forever');
         return $vote;
     }
 

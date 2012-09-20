@@ -81,11 +81,13 @@ class Post extends Eloquent {
     {
         $this->set_attribute('score', DB::raw('score + 1'));
         $this->save();
+        $this->user->add_experience(1);
     }
     public function vote_down ()
     {
         $this->set_attribute('score', DB::raw('score - 1'));
         $this->save();
+        $this->user->add_experience(-1);
     }
 
 }
