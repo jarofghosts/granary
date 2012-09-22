@@ -1,14 +1,16 @@
 @layout('common.template')
 
 @section('title')
-    Codename Sailor: Error
+    BRRAAAAAPPPP ERROR ERROR WWWEEEEEEOOOOOOOOOOOOOWWWW
+@endsection
+
+@section('header')
+THAT DOESN'T GO THERE.
 @endsection
 
 @section('main_content')
-    There has been an error: {{ $error_message }}<br/>
-    @foreach ($errors as $error)
-        Error: {{ print_r($error) }}<br/>
-    @endforeach
+<img src="/img/error.jpg" alt="OH GOD WHY?"/><br/>
+<marquee behavior="scroll" direction="left" scrollamount="30">{{ $error_message }}</marquee>
 @endsection
 
 @section('footer')
