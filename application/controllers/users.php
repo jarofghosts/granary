@@ -60,8 +60,6 @@ class Users_Controller extends Base_Controller {
 
         $input = Input::all();
 
-        $input['display_name'] = preg_replace('/^[^a-zA-Z]+/', '', $input['display_name']);
-
         $rules = array(
             'username' => 'required|unique:users|max:24',
             'password' => 'required',

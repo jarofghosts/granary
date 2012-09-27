@@ -44,6 +44,13 @@ class User extends Eloquent {
 
     }
 
+    public function preferences()
+    {
+
+        return Preference::find($this->get_attribute('id'));
+
+    }
+
     public function unread_messages()
     {
 
@@ -201,6 +208,7 @@ class User extends Eloquent {
         $query = Post::where('active', '=', 1)
                 ->order_by('default_order', 'desc')
                 ->take($take)
+                ->where('score', '>=', $this->preferences()->rating_threshold)
                 ->skip($skip);
 
         if ($excluded_categories) {

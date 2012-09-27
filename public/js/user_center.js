@@ -47,7 +47,7 @@ $(document).ready( function() {
 		{
 
 			$(".tab_current").removeClass('tab_current').stop(false, true)
-			.css('width', '100%').css('position', 'absolute').animate({
+			.css('width', '100%').css('position', 'absolute').css('top', 0).animate({
 				'margin-top' : '50px',
 				'opacity' : '0'
 			}, function() {
