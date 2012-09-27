@@ -91,6 +91,9 @@ Route::get('~/settings', 'users@get_settings');
 Route::get('~(:any)/posts', 'users@posts_by_handle');
 Route::get('~(:any)', 'users@by_handle');
 
+Route::get('!(:any)/edit', 'categories@edit_by_handle');
+Route::post('!(:any)/edit', 'categories@edit_by_handle');
+
 Route::get('!(:any)/new', 'posts@full_path_new');
 Route::post('!(:any)/new', 'posts@full_path_new');
 

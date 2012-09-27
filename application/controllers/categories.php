@@ -156,6 +156,25 @@ class Categories_Controller extends Base_Controller {
 
     }
 
+    public function get_edit_by_handle($category_handle) {
+        $category_id = Category::where('handle', '=', $category_handle)
+        ->take(1)->only('id');
+
+        if ($category_id) {
+            return $this->get_edit($category_id);
+        }
+    }
+
+
+    public function post_edit_by_handle($category_handle) {
+        $category_id = Category::where('handle', '=', $category_handle)
+        ->take(1)->only('id');
+
+        if ($category_id) {
+            return $this->post_edit($category_id);
+        }
+    }
+
     public function get_by_handle($category_handle = null)
     {
 

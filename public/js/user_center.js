@@ -3,18 +3,18 @@ $(document).ready( function() {
 	$("#user_profile_edit").ajaxForm({
 		success: function(res) {
 			if (res !== 'success') {
-				meow('There was an error saving your profile.');
+				meow('There was an error saving your profile.', 'bad');
 			} else {
-				meow('Profile saved!');
+				meow('Profile saved!', 'good');
 			}
 		}
 	});
 	$("#board_prefs_edit").ajaxForm({
 		success: function(res) {
 			if (res !== 'success') {
-				meow('There was an error saving your preferences.');
+				meow('There was an error saving your preferences.', 'bad');
 			} else {
-				meow('Preferences saved!');
+				meow('Preferences saved!', 'good');
 			}
 		}
 	});
@@ -31,12 +31,12 @@ $(document).ready( function() {
 
 			} else {
 
-				meow('There was an error changing your avatar.');
+				meow('There was an error changing your avatar.', 'error');
 
 			}
 		},
 		error: function ( error ) {
-			meow(error);
+			meow(error, 'error');
 		}
 	});
 

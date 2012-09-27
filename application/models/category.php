@@ -50,6 +50,19 @@ class Category extends Eloquent {
 
     }
 
+    public function get_logo()
+    {
+        $logo = $this->get_attribute('logo');
+        $return = $logo == '' ? '/img/defaults/category.jpg' : $logo;
+
+        return $return;
+    }
+
+    public function get_edit_logo()
+    {
+        return $this->get_attribute('logo');
+    }
+
 }
 
 ?>

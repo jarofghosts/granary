@@ -5,9 +5,8 @@
 @endsection
 
 @section('main_content')
-<form method="post" action="new">
+<form method="post" action="/!{{ $category->handle }}/edit">
     <br/>
-    <input type="hidden" name="id" value="{{ $category->id }}"/>
     <input type="text" name="title" placeholder="Title" value="{{ $category->title }}"/><br/>
     <a href="{{ URL::base() . '/!' . $category->handle }}">{{ $category->handle }}</a><br/>
     @if (substr($category->logo, 0, 6) == '/attic')

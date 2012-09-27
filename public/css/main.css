@@ -144,13 +144,14 @@ div#main {
     top: 35px;
     z-index: 1;
     font-size: .9em;
-    text-shadow:#aaa 0px 1px 0, #555 0 -1px 0;
+    text-shadow:#bbb 0px 1px 0, #999 0 -1px 0;
 }
 .category_slug img {
     position: absolute;
     z-index: 0;
+    max-width: 75px;
+    max-height: 40px;
     bottom: 30px;
-    display: none;
 }
 
 .post_admin {
@@ -172,27 +173,27 @@ div#main {
     text-shadow: #555 1px 1px 0;
 }
 
-.roar {
-    background-color: #d5d5d5;
-    width: 275px;
-    min-height: 150px;
+.meow {
+    background-color: #d9d9d9;
+    width: 250px;
+    min-height: 50px;
     border-radius: 3px;
-    box-shadow: 2px 5px 5px 5px #ccc;
-    top: 200px;
+    box-shadow: 2px 2px 2px 2px #555;
+    top: 125px;
     right: 75px;
     padding: 10px;
     display: none;
     position: fixed;
 }
-.roar-icon {
+.meow-icon {
     display: block;
     float: right;
 }
-.roar-icon i {
+.meow-icon i {
     color: #333;
     font-size: 2.2em;
 }
-.roar span {
+.meow span {
     display: inline-block;
     margin-left: 10px;
     color: #333;
@@ -201,9 +202,7 @@ div#main {
 }
 
 h6 a {
-
     color: #ccc;
-
 }
 
 h6 a:hover {
@@ -289,9 +288,6 @@ textarea {
 }
 article {
     clear: both;
-}
-article:hover .category_slug img {
-    display: block;
 }
 .post h1 {
     display: block;

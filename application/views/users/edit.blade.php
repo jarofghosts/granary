@@ -16,7 +16,7 @@ Edit {{ $user->display_name }}
 @section('main_content')
     <div class="avatar_box">
         <img src="{{ URL::base() }}{{ $user->avatar }}" alt="{{ $user->display_name }}" class="mini_avatar"/><br/>
-        <a class="button avatar-toggle" href="{{ URL::base() }}/users/edit/$user->id }}/avatar">change avatar</a><br/>
+        <a class="button avatar-toggle" href="{{ URL::base() }}/users/edit/{{ $user->id }}/avatar">change avatar</a><br/>
         <form id="avatar-form" style="display: none" method="post" action="{{ URL::base() }}/users/change_avatar" enctype="multipart/form-data">
             <input type="text" name="avatar" placeholder="Avatar" value="{{ $user->edit_avatar }}"/>
             <input type="file" name="disabled" placeholder="Avatar" style="display: none"/><br/>
