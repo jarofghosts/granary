@@ -93,11 +93,8 @@ class Categories_Controller extends Base_Controller {
 
             'title' => 'required|unique:categories,title,' . $input['id'] . '|max:128',
             'description' => 'required|min:3',
-            'handle' => 'alpha_dash|unique:categories,handle,' . $input['id'] . '|min:1|max:32'
 
         );
-
-        $rules['logo'] = $input['logo_switch'] == 0 ? $rules['logo'] = 'url' : $rules['logo'] = 'image';
 
         $validation = Validator::make($input, $rules);
 
@@ -108,20 +105,6 @@ class Categories_Controller extends Base_Controller {
 
         } else {
 
-            $logo_uri = Input::get('logo', FALSE);
-
-            if ($logo_uri !== FALSE) {
-                
-                $logo_bernie = new Bernie;
-
-                $new_logo = $logo_bernie->migrate($logo_uri, "attic/categories/");
-
-                $input['logo'] = $new_logo;
-
-                Bernie::format($new_logo);
-
-            }
-
             $category = Category::find(Input::get('id'));
             $category->fill($input);
             $category->save();
@@ -131,6 +114,37 @@ class Categories_Controller extends Base_Controller {
         }
 
     }
+
+    public function post_change_logo()
+    {
+            if ( Input::file('avatar-upload', FALSE )) {
+
+                $new_name = Bernie::generate_filename(Input::get('avatar-upload'));
+
+                Input::upload('avatar-upload', './public/attic/categories', $new_name);
+                
+                $new_avatar = '/attic/categories/' . $new_name;
+
+            } else if (Input::get('logo', FALSE) !== FALSE) {
+
+                $new_avatar = Bernie::migrate(Input::get('logo'), "attic/categories/");
+
+            } else {
+
+                return Response::json(array('success' => false));
+
+            }
+
+            Bernie::format($new_avatar);
+            $response = array(
+                'img_src' => $new_avatar,
+                'success' => true
+            );
+
+            return Response::json($response);
+
+    }
+
 
     public function get_index()
     {

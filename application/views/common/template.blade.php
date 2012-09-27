@@ -10,6 +10,7 @@
         {{ HTML::style('css/user.css'); }}
         @endif
         {{ HTML::style('css/main.css'); }}
+        {{ HTML::style('css/style.css'); }}
         {{ HTML::style('css/vendor/jquery-ui-1.8.23.custom.css'); }}
         {{ HTML::style('css/vendor/font-awesome.css'); }}
         {{ HTML::style('js/plugins/flexbox/css/jquery.flexbox.css'); }}
@@ -95,8 +96,9 @@
 <script src="{{ URL::base() }}/js/plugins/mousetrap.min.js"></script>
 <script defer src="{{ URL::base() }}/js/plugins/flexbox/js/jquery.flexbox.min.js"></script>
 <script defer src="{{ URL::base() }}/js/sailaway.js"></script>
-<script defer src="{{ URL::base() }}/js/keystrokes.js"></script>
-<script defer src="{{ URL::base() }}/js/meow.js"></script>
+<script defer src="{{ URL::base() }}/js/plugins/keystrokes.js"></script>
+<script defer src="{{ URL::base() }}/js/plugins/meow.js"></script>
+
 @if (!Auth::check())
 <script>
     $(document).ready( function() {
