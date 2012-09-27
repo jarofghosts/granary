@@ -199,7 +199,7 @@ class User extends Eloquent {
 
     }
 
-    public function post_list( $take = 9, $skip = 0 )
+    public function post_list( $skip = 0 )
     {
 
         $excluded_categories = $this->excluded_categories();
@@ -207,7 +207,7 @@ class User extends Eloquent {
 
         $query = Post::where('active', '=', 1)
                 ->order_by('default_order', 'desc')
-                ->take($take)
+                ->take($this->preferences()->front_page_posts)
                 ->where('score', '>=', $this->preferences()->rating_threshold)
                 ->skip($skip);
 

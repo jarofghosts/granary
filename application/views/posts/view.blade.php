@@ -3,11 +3,10 @@
     <h1><a href="{{ URL::base() }}/!{{ $post->category->handle }}/<{{ $post->slug }}">{{ $post->title }}</a></h1>
 
     <div class="user_slug">
-        
         <img src="{{ URL::base() }}{{ $post->user->avatar }}" alt="{{ $post->user->display_name }}"/>
         <a href="{{ URL::base() }}/~{{ $post->user->username }}">{{ $post->user->display_name }}</a></div>
     <div class="category_slug">
-        <img src="{{ URL::base() }}{{ $post->category->logo }}" alt="{{ $post->category->title }}"/><br/>
+        <img src="{{ URL::base() }}{{ $post->category->logo }}" alt="{{ $post->category->title }}"/>
         <a href="{{ URL::base() }}/!{{ $post->category->handle }}">{{ $post->category->title }}</a>
     </div>
     <blockquote style="background-color: {{ $post->user->color }}">

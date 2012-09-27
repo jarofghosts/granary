@@ -56,6 +56,9 @@
                         <li><a href="{{ URL::base() }}/posts/new">new post</a></li>
                         <li><a href="{{ URL::base() }}/categories/new">new category</a></li>
                         <li><a href="{{ URL::base() }}/groups/new">new group</a></li>
+                        @if (Auth::user()->access_level > 5)
+                        <li><a href="{{ URL::base() }}/smilies/new">new emoticon</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div id="float_content_box" class="fixed-left">
@@ -68,6 +71,11 @@
                     <div id="new-group" class="messages">
                         <i class="icon-group"></i><a href="{{ URL::base() }}/groups/new">new group</a>
                     </div>
+                    @if (Auth::user()->access_level > 5)
+                    <div id="new-smiley" class="messages">
+                        <i class="icon-bolt"></i><a href="{{ URL::base() }}/smilies/new">new emoticon</a>
+                    </div>
+                    @endif
                 </div>
                 @endif
             </header>

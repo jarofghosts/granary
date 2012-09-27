@@ -136,14 +136,6 @@ div.center_action {
 .exclusions {
     position: relative;
 }
-.reply-delete {
-    margin-right: -88px;
-}
-.reply .post_admin a {
-    display: inline-block;
-    margin-left: 5px;
-    margin-bottom: -2px;
-}
 .tab_current {
     width: 100%;
 }

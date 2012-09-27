@@ -13,11 +13,6 @@ body {
     color: #555;
 }
 
-.reply .button {
-    display: inline-block;
-    float: right;
-}
-
 header {
     border-bottom: 4px double #333;
     box-shadow: 2px 2px #ddd;
@@ -91,24 +86,7 @@ select {
     text-decoration: none;
     border: none;
 }
-.category_slug {
-    text-align: center;
-    font-size: .85em;
-    float: right;
-    width: 90px;
-    margin-left: -3px;
-    margin-top: 27px;
-    border-top: 1px solid #555;
-    border-right: 1px solid #555;
-    border-bottom: 1px solid #555;
-    border-radius: 3px;
-    padding: 3px;
-    box-shadow: 1px 1px 1px #555;
-}
-.category_slug img {
-    max-width: 75px;
-    max-height: 75px;
-}
+
 .header {
     font-size: 2.5em;
     color: #333;
@@ -160,16 +138,30 @@ div#main {
     float: left;
     margin-top: 50px;
 }
+.category_slug {
+    position: absolute;
+    right: 0px;
+    top: 35px;
+    z-index: 1;
+    font-size: .9em;
+    text-shadow:#aaa 0px 1px 0, #555 0 -1px 0;
+}
+.category_slug img {
+    position: absolute;
+    z-index: 0;
+    bottom: 30px;
+    display: none;
+}
 
 .post_admin {
     position: absolute;
-    bottom: -20px;
-    right: 125px;
+    bottom: 7px;
+    right: 0px;
 }
 
 .reply_count {
     position: absolute;
-    bottom: -22px;
+    bottom: 7px;
     left: 25px;
 }
 .footer {
@@ -298,6 +290,9 @@ textarea {
 article {
     clear: both;
 }
+article:hover .category_slug img {
+    display: block;
+}
 .post h1 {
     display: block;
     margin-left: 175px;
@@ -339,6 +334,8 @@ blockquote {
     margin-left: 0px;
     margin-right: 0px;
     padding: 20px;
+    padding-bottom: 35px;
+    width: 100%;
     position: relative;
     min-height: 100px;
 }
@@ -357,8 +354,8 @@ blockquote {
     border-radius: 3px;
 }
 .reply {
-    width: 85%;
-    margin: auto;
+    clear: both;
+    width: 100%;
     position: relative;
 }
 .reply_container {

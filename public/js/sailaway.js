@@ -7,7 +7,7 @@ $( function() {
     		$("#float_content_box").stop(false, true).css('margin-left', '300px').css('top', '-50px').
     		show().animate({
     			'opacity' : '1',
-    			'top' : '10px',
+    			'top' : '15px',
     			'margin-left' : '0px'
     		}, 200);
     	} else if ($(document).scrollTop() <= 115) {

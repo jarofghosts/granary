@@ -181,7 +181,8 @@ class Posts_Controller extends Base_Controller {
         if ($current_vote >= 0) {
             Post::find( $post_id )->vote_down(Auth::user()->id);
             Auth::user()->cast_vote( $post_id, -1 );
-            return Response::json( array('success' => true, 'hide_post' => true, 'changed' => true ) );
+            $hide_post = Post::find( $post_id )->score < Auth::user()->preferences()->rating_threshold ? true : false;
+            return Response::json( array('success' => true, 'hide_post' => $hide_post, 'changed' => true ) );
         }
         return Response::json( array('success' => true ) );
     }
