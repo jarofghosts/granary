@@ -38,6 +38,12 @@ class Post extends Eloquent {
 
     }
 
+    public function set_category_id( $new_category ){
+        if ($new_category != $this->get_attribute('category_id')){
+            Cache::forget('full_path_post&' . $this->get_attribute('id'));
+        }
+    }
+
     public static function generate_slug($title, $category_id)
     {
 
@@ -58,6 +64,14 @@ class Post extends Eloquent {
         return $slug;
 
     }
+
+    public function full_path()
+    {
+        return Cache::remember('full_path_post&' . $this->get_attribute('id'),
+            URL::base() . '/!' . Category::find($this->get_attribute('category_id')) . '/<' . $this->get_attribute('slug')
+            , 'forever');
+    }
+
     // @todo make a generator for this as well.
     public static function full_path( $category_handle, $post_slug )
     {

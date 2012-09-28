@@ -19,6 +19,7 @@ class Create_Posts {
                     $table->boolean('active')->default(1);
                     $table->timestamp('default_order');
                     $table->string('slug', 64);
+                    $table->string('full_path', 256);
                     $table->integer('score');
                     $table->timestamps();
                 });

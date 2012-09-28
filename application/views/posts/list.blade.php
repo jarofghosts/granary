@@ -1,7 +1,11 @@
 @layout('common.template')
 
 @section('title')
-Posts index
+@if (isset($category))
+{{ $category->title }}
+@else
+Posts
+@endif
 @endsection
 
 @section('main_content')

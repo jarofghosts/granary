@@ -238,7 +238,7 @@ class Categories_Controller extends Base_Controller {
 
             $posts = $query->get();
 
-            return View::make('posts.list')->with('posts', $posts);
+            return View::make('posts.list')->with('posts', $posts)->with('category', Category::find($category_id));
 
         }
 
