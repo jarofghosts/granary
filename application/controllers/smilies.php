@@ -11,6 +11,6 @@ class Smilies_Controller extends Base_Controller {
 
     public function get_new()
     {
-    	
+    	return View::make('smilies.new');
     }
 }
