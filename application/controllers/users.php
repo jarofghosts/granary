@@ -64,7 +64,6 @@ class Users_Controller extends Base_Controller {
             'username' => 'required|unique:users|max:24',
             'password' => 'required',
             'real_name' => 'max:128',
-            'avatar' => 'max:128',
             'email' => 'email|max:128',
             'color' => 'max:32'
         );
@@ -75,10 +74,6 @@ class Users_Controller extends Base_Controller {
             return View::make('common.error')->with('errors', $validation->errors)
                             ->with('error_message', 'Form validation errors');
         } else {
-
-            $input['avatar'] = $this->action_upload_avatar();
-
-            if (!$input['avatar']) { unset($input['avatar']); }
 
             $user_data = array_merge($input, array(
                 'active' => 1

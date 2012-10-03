@@ -318,7 +318,7 @@ class User extends Eloquent {
     {
         $category = Category::find($category_id);
 
-        if ( $category->creator_id == $this->get_attribute('id') 
+        if ( $category->creator_id === $this->get_attribute('id') 
             || $this->get_attribute('access_level') > $category->creator->access_level
             || DB::table('user_category')->where('user_id', '=', $this->get_attribute('id'))
                 ->where('category_id', '=', $category_id)
@@ -337,7 +337,7 @@ class User extends Eloquent {
 
         $post = Post::find($post_id);
 
-        if ($post->author_id == $this->get_attribute('id')
+        if ($post->author_id === $this->get_attribute('id')
          || $this->get_attribute('access_level') > $post->user->access_level
          || ( $this->can_edit($post->category_id) && $post->user->access_level <= $this->get_attribute('access_level')))
         {
@@ -354,9 +354,9 @@ class User extends Eloquent {
     {
         $reply = Reply::find($reply_id);
 
-        if ($reply->author_id == $this->get_attribute('id')
+        if ($reply->author_id === $this->get_attribute('id')
          || $this->get_attribute('access_level') > $reply->user->access_level
-         || ( $this->can_edit($reply->grandfather->category_id) && $reply->user->access_level <= $this->get_attribute('access_level')))
+         || ( $this->can_edit($reply->grandparent->category_id) && $reply->user->access_level <= $this->get_attribute('access_level')))
         {
 
             return true;

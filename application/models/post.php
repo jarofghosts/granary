@@ -42,6 +42,7 @@ class Post extends Eloquent {
         if ($new_category != $this->get_attribute('category_id')){
             Cache::forget('full_path_post&' . $this->get_attribute('id'));
         }
+        $this->set_attribute('category_id', $new_category);
     }
 
     public static function generate_slug($title, $category_id)
@@ -65,10 +66,10 @@ class Post extends Eloquent {
 
     }
 
-    public function full_path()
+    public function get_absolute_path()
     {
         return Cache::remember('full_path_post&' . $this->get_attribute('id'),
-            URL::base() . '/!' . Category::find($this->get_attribute('category_id')) . '/<' . $this->get_attribute('slug')
+            URL::base() . '/!' . $this->category->handle . '/<' . $this->get_attribute('slug')
             , 'forever');
     }
 

@@ -14,7 +14,11 @@ if ($category_id) {
 }
 ?>
     @if (!$category)
-    <div id="category_id"></div>
+        <select name="category_id" id="category_select">
+        @foreach (Category::where('active', '=', 1)->get() as $category)
+        <option value="{{ $category->id; }}">{{ $category->title; }}</option>
+        @endforeach
+    </select><br/>
     @else
     <strong>{{ $category->title }}</strong><br/>
     <input type="hidden" name="category_id" value="{{ $category_id }}"/>

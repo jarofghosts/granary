@@ -20,7 +20,6 @@
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
     </head>
     <body>
-        <img src="@yield('background-image')" id="test-background"/>
         <div id="wrapper">
             <header>
                 <h1 class="title"><a href="{{ URL::base() }}/posts">Granary</a></h1>
