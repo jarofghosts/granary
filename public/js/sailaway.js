@@ -27,7 +27,7 @@ $( function() {
         container = $(this).attr('href');
         $(container).css('opacity', 0).css('height', 0)
         .toggle().animate({
-            height: 100,
+            height: 125,
             opacity: 1
         }, function() {
             $(container + ' textarea').focus();
@@ -36,6 +36,11 @@ $( function() {
     $(".quick-reply-entry").bind('keydown', function(e) {
         if (e.keyCode === 10 || e.keyCode == 13 && e.ctrlKey) {
             sendQuickReply($(this).data('post-id'));
+        }
+    });
+    $(".quick-reply-entry").bind('keyup', function(e) {
+        if (e.keyCode === 27) {
+            $("#post-" + $(this).data('post-id') + " .quick-reply").trigger('click');
         }
     });
     $(".up").bind('click', function(e) {

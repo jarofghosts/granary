@@ -37,5 +37,6 @@
     </div>
 </article>
 <div class="quick-reply-container" id="qr-{{ $post->id }}">
-    <textarea class="quick-reply-entry user-color" placeholder="quick reply" data-post-id="{{ $post->id }}"></textarea>
+    <textarea class="quick-reply-entry user-color" placeholder="quick reply" data-post-id="{{ $post->id }}"></textarea><br/>
+    <a href="#" class="button" onclick="sendQuickReply({{ $post->id }})" style="margin-left: 350px"><i class="icon-circle-arrow-right"></i> send</a>
 </div>
