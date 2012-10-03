@@ -71,6 +71,19 @@ select {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.quick-reply-container {
+    display: none;
+    margin-top: -45px;
+    margin-left: 50px;
+}
+
+.quick-reply-entry {
+    min-width: 0px;
+    min-height: 0px;
+    width: 400px;
+    height: 100px;
+}
+
 .user_slug {
     margin-top: -32px;
     padding: 5px;
@@ -126,14 +139,19 @@ select {
     padding: 10px;
     margin: 3px;    
 }
+.reply_count a {
+    border-bottom: none;
+    font-size: 15px;
+    margin-left: 5px;
+}
 a {
     text-decoration: none;
-    color: #303030;
-    border-bottom: 1px double #555;
+    color: #333;
+    border-bottom: 1px solid #555;
 }
 a:hover {
-    color: #101010;
-    text-shadow: 1px 1px 1px #ccc;
+    color: #222;
+    text-shadow: 1px 1px 1px #888;
 }
 a:active {
     background-color: #555;
@@ -166,9 +184,13 @@ div#main {
 }
 
 .post_admin {
+
     position: absolute;
     bottom: 7px;
-    right: 0px;
+    right: -10px;
+}
+.post_admin a {
+    margin-left: 5px;
 }
 
 .reply_count {

@@ -10,7 +10,6 @@
         {{ HTML::style('css/user.css'); }}
         @endif
         {{ HTML::style('css/main.css'); }}
-        {{ HTML::style('css/style.css'); }}
         {{ HTML::style('css/vendor/jquery-ui-1.8.23.custom.css'); }}
         {{ HTML::style('css/vendor/font-awesome.css'); }}
         {{ HTML::style('js/plugins/flexbox/css/jquery.flexbox.css'); }}
@@ -18,6 +17,13 @@
         <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        @if (Auth::check())
+        <style type="text/css">
+            .user-color {
+                background-color: {{ Auth::user()->color }};
+            }
+        </style>
+        @endif
     </head>
     <body>
         <div id="wrapper">
@@ -64,7 +70,7 @@
                 </div>
                 <div id="float_content_box" class="fixed-left">
                     <div id="new-post" class="messages">
-                        <i class="icon-edit"></i><a href="{{ URL::base() }}/posts/new">new post</a>
+                        <i class="icon-pencil"></i><a href="{{ URL::base() }}/posts/new">new post</a>
                     </div>
                     <div id="new-category" class="messages">
                         <i class="icon-tag"></i><a href="{{ URL::base() }}/categories/new">new category</a>

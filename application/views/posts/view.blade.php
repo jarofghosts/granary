@@ -23,13 +23,19 @@
         class="vote-button @if (Auth::user()->check_vote( $post->id ) < 0)selected-vote@endif down button"
         href="{{ $post->absolute_path }}/down">-</a>
         @endif
-        <a class="button" href="{{ $post->absolute_path }}">replies: {{ count($post->replies) }}</a>
+
+        @if (Auth::check())
+        <a href="#qr-{{ $post->id }}" class="quick-reply button"><i class="icon-bullhorn"></i> reply</a>
+        @endif
+        <a href="{{ $post->absolute_path }}"><i class="icon-eye-open"></i> replies: <span class="replies-count">{{ count($post->replies) }}</span></a>
     </div>
     <div class="post_admin" role="administration">
         @if (Auth::check() && (Auth::user()->can_edit_post($post->id)))
-        <a class="post-edit button" href="{{ $post->absolute_path }}/edit">edit</a>
-        <a class="post-delete button" href="{{ $post->absolute_path }}/delete">delete</a>
+        <a class="post-edit button" href="{{ $post->absolute_path }}/edit"><i class="icon-edit"></i> edit</a>
+        <a class="post-delete button" href="{{ $post->absolute_path }}/delete"><i class="icon-remove-sign"></i> delete</a>
         @endif
     </div>
-    
 </article>
+<div class="quick-reply-container" id="qr-{{ $post->id }}">
+    <textarea class="quick-reply-entry user-color" placeholder="quick reply" data-post-id="{{ $post->id }}"></textarea>
+</div>

@@ -21,6 +21,23 @@ $( function() {
             });
     	}
     });
+
+    $(".quick-reply").bind('click', function(e) {
+        e.preventDefault();
+        container = $(this).attr('href');
+        $(container).css('opacity', 0).css('height', 0)
+        .toggle().animate({
+            height: 100,
+            opacity: 1
+        }, function() {
+            $(container + ' textarea').focus();
+        });
+    });
+    $(".quick-reply-entry").bind('keydown', function(e) {
+        if (e.keyCode === 10 || e.keyCode == 13 && e.ctrlKey) {
+            sendQuickReply($(this).data('post-id'));
+        }
+    });
     $(".up").bind('click', function(e) {
         e.preventDefault();
         post = $(this).parents('article').attr('id');
@@ -64,3 +81,20 @@ $( function() {
 
     });
 });
+
+function sendQuickReply( post_id ) {
+    $.post('/replies/new',
+        { grandparent_id: post_id,
+          body: $("#qr-" + post_id + " textarea").val() },
+        function(res) {
+            if (res.success === 'success') {
+                $("#post-" + post_id + " .replies-count").text(res.reply_count);
+                $("#qr-" + post_id).fadeOut(100, function() {
+                    $("#qr-" + post_id + " textarea").val('');
+                });
+                meow('Reply saved!', 'good');
+            } else {
+                meow('There was an error sending the quick reply', 'error');
+            }
+        }, 'json');
+}

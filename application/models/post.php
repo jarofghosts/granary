@@ -47,9 +47,10 @@ class Post extends Eloquent {
 
     public static function generate_slug($title, $category_id)
     {
-
+        // kill apostrophes
+        $slug = preg_replace('\'', '', $title);
         // replace all non letters or digits with -, chomp it to 60 characters
-        $slug = preg_replace('/\W+/', '-', $title);
+        $slug = preg_replace('/\W+/', '-', $slug);
         $slug = strtolower(trim($slug, '-'));
         $slug = substr($slug, 0, 60);
 

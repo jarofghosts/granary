@@ -52,6 +52,11 @@ class Replies_Controller extends Base_Controller {
 
             $new_reply->user->add_experience();
 
+            if (Request::ajax()) {
+                return Response::json(array(
+                    'success' => 'success',
+                     'reply_count' => count(Reply::where('grandparent_id', '=', $reply['grandparent_id'])->get())));
+            }
             return Redirect::to('/!' . $new_reply->grandparent->category->handle . '/<' . $new_reply->grandparent->slug . '#reply-' . $new_reply->id);
         }
 
