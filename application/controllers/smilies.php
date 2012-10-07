@@ -35,13 +35,25 @@ class Smilies_Controller extends Base_Controller {
     public function post_new()
     {
     	$smiley = array(
-    		replacement => Input::get('replacement'),
-    		trigger => Input::get('trigger')
+    		'replacement' => Input::get('replacement'),
+    		'trigger' => Input::get('trigger'),
+    		'author_id' => Auth::user()->id
     	);
-    	if (Input::get('resize', FALSE)) {
+    	$rules = array(
+    		'replacement'	=> 'required|max:128',
+    		'trigger'	=> 'required|max|24'
+    	);
+    	$validation = Validator::make($reply, $rules);
+
+        if ($validation->fails()) {
+            return View::make('common.error')->with('errors', $validation->errors)
+                            ->with('error_message', 'Form validation errors');
+       	 } else {
+    		if (Input::get('resize', FALSE)) {
     		Bernie::load(Input::get('replacement'));
     		Bernie::resizeToHeight(20);
     		Bernie::save();
+    		}
     	}
     }
 }

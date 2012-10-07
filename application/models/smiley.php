@@ -24,4 +24,5 @@ class Smiley extends Eloquent {
 	{
 		Cache::forget('smilies');
 	}
+
 }
