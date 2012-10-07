@@ -61,6 +61,7 @@ Route::controller('replies');
 Route::controller('messages');
 Route::controller('ignores');
 Route::controller('groups');
+Route::controller('smilies');
 
 // >>>>>>>>>>>>>>>>> Search
 // ... interfaces to SILO

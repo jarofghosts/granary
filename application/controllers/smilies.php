@@ -13,4 +13,35 @@ class Smilies_Controller extends Base_Controller {
     {
     	return View::make('smilies.new');
     }
+
+    public function post_image_upload()
+    {
+    	if (Input::get('image_file', FALSE) !== FALSE) {
+            $new_name = Bernie::generate_filename(Input::get('image_file'));
+
+            Input::upload('image_file', './public/smilies', $new_name);
+                
+            $location = '/smilies/' . $new_name;
+    	}
+    	if (Input::get('image_link', FALSE) !== FALSE) {
+
+    		$location = Bernie::migrate(Input::get('image_link'), "smilies/");
+
+    	}
+
+    	return Response::json(array('success' => 'success','location' =>$location));
+    }
+
+    public function post_new()
+    {
+    	$smiley = array(
+    		replacement => Input::get('replacement'),
+    		trigger => Input::get('trigger')
+    	);
+    	if (Input::get('resize', FALSE)) {
+    		Bernie::load(Input::get('replacement'));
+    		Bernie::resizeToHeight(20);
+    		Bernie::save();
+    	}
+    }
 }
