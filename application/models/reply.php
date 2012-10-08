@@ -36,6 +36,7 @@ class Reply extends Eloquent {
 
     public function set_body($source) {
         $this->set_attribute('body_source', $source);
+        $source = Magenta::smilerize($source);
         $this->set_attribute('body', Sparkdown\Markdown ( $source ));
     }
 
