@@ -26,22 +26,6 @@ if ($category_id) {
     <div style="clear: both"></div>
     <input type="text" name="title" placeholder="Title"/><br/>
     <textarea name="body" placeholder="Body" class="post_body_input" style="background-color: {{ Auth::user()->color }};"></textarea><br/>
-    <button type="publish">Submit</button>
+    <button type="submit">submit</button>
 </form>
-@endsection
-
-@section('post_includes')
-<script>
-$(document).ready( function() {
-    $('#category_id').flexbox('{{ URL::base() }}/search/categories',
-        {
-            watermark: 'Category',
-            autoCompleteFirstMatch: true,
-            paging: {
-                pageSize: 20
-            }
-
-        });
-});
-</script>
 @endsection

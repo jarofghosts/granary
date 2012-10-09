@@ -20,7 +20,7 @@ class Magenta {
 		foreach ( $rules as $rule )
 		{
 
-			$text = str_replace($rule->trigger, "<img src='{$rule->replacement}' alt='{$rule->trigger}'/>", $text);
+			$text = str_replace($rule->trigger, "<img src='{$rule->replacement}' class='smiley' alt='{$rule->trigger}'/>", $text);
 
 		}
 

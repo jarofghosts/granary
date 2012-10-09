@@ -22,6 +22,14 @@ class Message extends Eloquent {
         
     }
 
+    public static function thread( $parent_id )
+    {
+
+    	return Message::where('id', '=', $parent_id)->or_where('parent_id', '=', $parent_id)
+    			->order_by('created_at', 'asc')->get();
+
+    }
+
 }
 
 ?>

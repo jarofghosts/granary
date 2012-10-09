@@ -9,15 +9,23 @@ class Messages_Controller extends Base_Controller {
         $message = Message::find($message_id);
 
         if ($message) {
-            if ($message->recipient->id == Auth::user()->id) {
+
+            if ($message->recipient->id === Auth::user()->id) {
                 $message->read = true;
                 $message->save();
                 return View::make('messages.view')->with('message', $message);
+
             }
             return View::make('common.error')->with('error_message', 'Message does not exist');
         }
         return View::make('common.error')->with('error_message', 'You cannot read this message');
 
+    }
+
+    public function get_thread($parent_id)
+    {
+        $messages = Message::thread($parent_id);
+        return View::make('messages.thread')->with('messages', $messages);
     }
 
     public function get_send($recipient_id = null, $parent_id = null)
@@ -29,8 +37,8 @@ class Messages_Controller extends Base_Controller {
             $recipient = false;
         }
         return View::make('messages.send')
-        ->with('recipient', $recipient)
-        ->with('parent_id', $parent_id);
+            ->with('recipient', $recipient)
+            ->with('parent_id', $parent_id);
 
     }
 

@@ -8,8 +8,11 @@ Compose message@if ($recipient)
 
 @section('main_content')
 @if ($parent_id)
-<?php $thread = Message::thread($parent_id); ?>
-@include('messages.thread');
+<?php $messages = Message::thread($parent_id); ?>
+<h1>{{ $messages[0]->subject}}</h1><br/>
+@foreach ($messages as $message)
+@include('messages.single_view')
+@endforeach
 @endif
 @include('messages.send_form')
 @endsection

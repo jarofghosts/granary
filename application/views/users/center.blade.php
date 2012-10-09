@@ -22,11 +22,21 @@
 <script src="{{ URL::base() }}/js/plugins/colorpick/jquery.miniColors.min.js"></script>
 <script src="{{ URL::base() }}/js/user_center.js"></script>
 <script>
+$( function() {
+	$("#color_picker").miniColors( {
+		change: function(hex) {
+			$("#about_me_textarea").css('background-color', hex);
+		}
+	});
+	$('#user_id').flexbox('{{ URL::base() }}/search/users',
+	{
+		watermark: 'User',
+		autoCompleteFirstMatch: true,
+		paging: {
+			pageSize: 20
+		}
 
-    $("#color_picker").miniColors( {
-        change: function(hex) {
-            $("#about_me_textarea").css('background-color', hex);
-        }
-    });
+	});
+});
 </script>
 @endsection

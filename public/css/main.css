@@ -378,6 +378,7 @@ blockquote img {
 .profile_block {
     margin-left: -5px;
     width: 70%;
+    margin-bottom: -15px;
 }
 #side_pane {
     background-color: #f0f0f0;

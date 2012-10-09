@@ -13,14 +13,14 @@
 @include('users.center.edit_preferences')
 </div>
 <div style="display: none" id="center_my_content">
-My content
+@include('users.center.edit_content')
 </div>
 <div style="display: none" id="center_exclusions">
 @include('users.center.edit_exclusions')
 </div>
 @if (Auth::user()->access_level > 1)
 <div style="display: none" id="center_admin">
-Admin
+@include('users.center.admin_panel')
 </div>
 @endif
 </div>
