@@ -8,6 +8,3 @@
     {{ $message->body }}
 
 </blockquote>
-<br/>
-
-<a class="button" href="{{ URL::base() }}/messages/send/{{ $message->sender->id }}/{{ $message->id }}">reply</a>

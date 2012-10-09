@@ -29,6 +29,7 @@
         <div id="wrapper">
             <header>
                 <h1 class="title"><a href="{{ URL::base() }}/posts">Granary</a></h1>
+                @yield('head_name')
                 <div id="head_user_box" class="user_box">
                     @if (Auth::check())
                     <div id="user" class="messages">
