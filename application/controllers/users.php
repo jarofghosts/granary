@@ -99,6 +99,18 @@ class Users_Controller extends Base_Controller {
 
     }
 
+    public function action_admin()
+    {
+        if (Auth::user()->can_admin_user(Input::get('user_id'))) {
+            $user = User::find(Input::get('user_id'));
+            $user->access_level = Input::get('access_level');
+            $user->save();
+            return 'success';
+        } else {
+            return 'error';
+        }
+    }
+
     public function action_post_edit()
     {
 

@@ -19,6 +19,16 @@ $(document).ready( function() {
 		}
 	});
 
+	$("#admin_form").ajaxForm({
+		success: function(res) {
+			if (res !== 'success') {
+				meow('There was an error conducting that action.', 'bad');
+			} else {
+				meow("User has been admin'd!", 'good');
+			}
+		}
+	});
+
 	$("#avatar-form").ajaxForm({
 		dataType: 'json',
 		success: function( res ) {

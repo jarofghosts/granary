@@ -383,5 +383,17 @@ class User extends Eloquent {
 
     }
 
+    public function can_admin_user($user_id)
+    {
+        $user = User::find($user_id);
+
+        if ($this->get_attribute('access_level') > $user->access_level )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
 }
