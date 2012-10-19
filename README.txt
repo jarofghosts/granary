@@ -7,4 +7,4 @@
    \/__/     \/__/     \/__/     \/__/     \/__/     \|__|  
 
 
-A chatty Kathy web forum that never forgets. Unless you want it to.
+A web friendly web forum for friendly friends.
