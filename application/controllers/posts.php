@@ -110,6 +110,11 @@ class Posts_Controller extends Base_Controller {
 
     }
 
+    public function post_delete($post_id = null)
+    {
+        
+    }
+
     public function post_edit()
     {
         $post_id = Input::get('id');

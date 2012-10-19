@@ -43,6 +43,16 @@ $( function() {
             $("#post-" + $(this).data('post-id') + " .quick-reply").trigger('click');
         }
     });
+    $(".post-delete").bind('click', function(e) {
+        e.preventDefault();
+        post = $(this).parents('article').attr('id');
+        post_id = post.substring(5);
+
+        $.post('/posts/delete/' + post_id,
+            function(res) {
+                
+            })        
+    })
     $(".up").bind('click', function(e) {
         e.preventDefault();
         post = $(this).parents('article').attr('id');

@@ -51,6 +51,7 @@ class Reply extends Eloquent {
 
             while (Reply::where('grandparent_id', '=', $post_id)->where('slug', '=', $slug)->get()) {
                 $slug = $slug_check . $appendix;
+                $appendix++;
             }
 
             return $slug;

@@ -14,7 +14,7 @@ class Groups_Controller extends Base_Controller {
     public function post_new()
     {
 
-        $creator_id = Auth::check() ? Auth::user()->id : 0;
+        $creator_id = Auth::user()->id;
 
         $group = array(
             'title' => Input::get('title'),
@@ -90,6 +90,11 @@ class Groups_Controller extends Base_Controller {
 
             return View::make('common.error')->with('error_message', 'Internal error, no group specified');
         }
+
+    }
+
+    public function post_edit()
+    {
 
     }
 
