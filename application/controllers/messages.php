@@ -15,10 +15,16 @@ class Messages_Controller extends Base_Controller {
                 $message->save();
                 return View::make('messages.view')->with('message', $message);
 
+            } elseif ($message->sender->id === Auth::user()->id) {
+                if ($message->read == false) {
+                    return View::make('messages.edit')->with('message', $message);
+                } else {
+                    return $this->get_thread($message->parent_id);
+                }
             }
-            return View::make('common.error')->with('error_message', 'Message does not exist');
+                return View::make('common.error')->with('error_message', 'You cannot read this message');   
         }
-        return View::make('common.error')->with('error_message', 'You cannot read this message');
+        return View::make('common.error')->with('error_message', 'Message does not exist');
 
     }
 
@@ -131,6 +137,33 @@ class Messages_Controller extends Base_Controller {
             $new_message->save();
         }
 
+    }
+    public function post_change()
+    {
+        $message_data = array(
+            'sender_id' => Auth::user()->id,
+            'subject' => Input::get('subject'),
+            'recipient_id' => Input::get('recipient_id'),
+            'body' => Input::get('body')
+        );
+        $rules = array(
+            'body' => 'required',
+            'subject' => 'max:128');
+        $validation = Validator::make($message_data, $rules);
+
+        if ($validation->fails()) {
+            return View::make('common.error')->with('errors', $validation->errors)
+            ->with('error_message', 'Form validation errors');
+        } else {
+            $message = Message::find(Input::get('message_id'));
+            if ($message->read == false) {
+                $message->fill($message_data);
+                $message->save();
+                return Redirect::to('/messages');
+            } else {
+                return View::make('common.error')->with('error_message', 'Cannot alter a read message');
+            }
+        }
     }
 
 }

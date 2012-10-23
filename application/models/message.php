@@ -2,7 +2,7 @@
 /**
  * Messages model
  *
- * @author kab0b0
+ * @author jarofghosts
  */
 class Message extends Eloquent {
 
