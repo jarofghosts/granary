@@ -112,7 +112,8 @@ class Posts_Controller extends Base_Controller {
 
     public function post_delete($post_id = null)
     {
-        
+        $this->delete_remove($post_id);
+        return 'success';
     }
 
     public function post_edit()

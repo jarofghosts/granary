@@ -50,7 +50,16 @@ $( function() {
 
         $.post('/posts/delete/' + post_id,
             function(res) {
-                
+                if (res === 'success') {
+                    $('#post-' + post_id).animate( {
+                            opacity: 0,
+                            height: '0px'
+                        }, function() {
+                            $('#post-' + post_id).remove();
+                        });
+                } else {
+                    meow('There was an error deleting the post.', 'error');
+                }
             })        
     })
     $(".up").bind('click', function(e) {
@@ -65,7 +74,7 @@ $( function() {
                     $('#' + post + ' .down').animate( { opacity: .4 } );
                     $('#' + post + ' .up').animate( { opacity: 1 } );
                 } else if (!res.success) {
-                    meow('There was an error voting on the post.');
+                    meow('There was an error voting on the post.', 'error');
                 }
             }, 'json');
     });
@@ -90,7 +99,7 @@ $( function() {
                         });
                     }
                 } else if (!res.success) {
-                    meow('There was an error voting on the post.');
+                    meow('There was an error voting on the post.', 'bad');
                 }
             }, 'json');
 
